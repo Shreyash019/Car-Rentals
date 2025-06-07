@@ -1,0 +1,40 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - '5000:5000'
+    env_file:
+      - .env
+    volumes:
+      - ./libs:/app/libs
+      - ./apps/web:/app/apps/web
+
+  api-bookings:
+    build:
+      context: .
+      dockerfile: apps/api-bookings/Dockerfile
+    ports:
+      - '4003:4003'
+    env_file:
+      - .env
+    volumes:
+      - ./libs:/app/libs
+      - ./apps/api-bookings:/app/apps/api-bookings
+
+  api-products:
+    build:
+      context: .
+      dockerfile: apps/api-products/Dockerfile
+    ports:
+      - '4002:4002'
+    env_file:
+      - .env
+    volumes:
+      - ./libs:/app/libs
+      - ./apps/api-products:/app/apps/api-products
+
+
+volumes:
+  pgdata:

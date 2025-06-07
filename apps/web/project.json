@@ -1,0 +1,37 @@
+{
+  "name": "web",
+  "root": "apps/web",
+  "projectType": "application",
+  "sourceRoot": "apps/web/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "next build",
+        "cwd": "apps/web"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "next dev -p 5000",
+        "cwd": "apps/web"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "next lint",
+        "cwd": "apps/web"
+      }
+    },
+    "export": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "next export",
+        "cwd": "apps/web"
+      }
+    }
+  },
+  "tags": ["type:web", "scope:frontend"]
+}
