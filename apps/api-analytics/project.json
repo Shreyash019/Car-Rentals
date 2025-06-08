@@ -1,0 +1,23 @@
+{
+  "name": "api-analytics",
+  "projectType": "application",
+  "root": "apps/api-analytics",
+  "sourceRoot": "apps/api-analytics",
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go run main.go",
+        "cwd": "apps/api-analytics"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go build -o api-analytics main.go",
+        "cwd": "apps/api-analytics"
+      }
+    }
+  },
+  "tags": []
+}

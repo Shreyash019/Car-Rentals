@@ -18,5 +18,6 @@ COPY --from=build /app/apps/web/.next ./.next
 COPY --from=build /app/apps/web/public ./public
 ENV NODE_ENV=production
 ENV PORT=5000
+ENV HOST=0.0.0.0
 EXPOSE 5000
-CMD ["npx", "next", "start"]
+CMD sh -c "npx next start -H $HOST"
