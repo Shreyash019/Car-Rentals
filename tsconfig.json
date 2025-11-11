@@ -1,0 +1,9 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./libs/common" },
+    { "path": "./libs/logger" },
+    { "path": "./apps/auth-service" },
+    { "path": "./apps/web-app" }
+  ]
+}

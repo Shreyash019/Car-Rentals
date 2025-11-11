@@ -1,0 +1,9 @@
+{
+  "extends": "../../config/tsconfig/nest.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "references": [{ "path": "../../libs/common" }, { "path": "../../libs/logger" }],
+  "include": ["src"]
+}

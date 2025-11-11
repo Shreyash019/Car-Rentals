@@ -1,0 +1,15 @@
+{
+  "extends": "../../config/tsconfig/nest.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@repo/common": ["../../libs/common/dist"],
+      "@repo/logger": ["../../libs/logger/dist"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "test", "dist", "**/*spec.ts"],
+  "references": [{ "path": "../../libs/common" }]
+}

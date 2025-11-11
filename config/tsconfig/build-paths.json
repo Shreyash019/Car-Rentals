@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@repo/common": ["../../libs/common/dist"],
+      "@repo/logger": ["../../libs/logger/dist"],
+      "@repo/config": ["../../libs/config/dist"]
+    }
+  }
+}
