@@ -1,19 +1,8 @@
 {
-  "name": "office-space-monorepo",
+  "name": "car-rentals",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "libs/*",
-    "apps/web-app",
-    "apps/auth-service"
-  ],
   "scripts": {
-    "build": "npx tsc -b",
-    "prebuild": "npx tsc -b libs/common && npx tsc -b libs/logger",
-    "create:app": "node scripts/create-app.mjs",
-    "dev:web": "npm run dev --workspace=apps/web-app",
-    "build:auth": "node scripts/build-auth.mjs",
-    "dev:auth": "npm run prebuild && npm run build:auth && npm run --workspace=apps/auth-service start:dev"
+    "dev:content-service": "pnpm --filter content-service start:dev"
   },
   "devDependencies": {
     "@types/node": "^24.9.2",
