@@ -2,7 +2,8 @@
   "name": "car-rentals",
   "private": true,
   "scripts": {
-    "dev:content-service": "pnpm --filter content-service start:dev"
+    "dev:content-service": "pnpm --filter content-service start:dev",
+    "dev:webapp": "pnpm --filter web-app dev"
   },
   "devDependencies": {
     "@types/node": "^24.9.2",

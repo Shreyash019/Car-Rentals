@@ -7,6 +7,10 @@ import { resolve } from 'path';
 async function bootstrap() {
   loadEnv({ path: resolve(__dirname, '..', '.env') });
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: process.env.ALLOWED_ORIGIN,
+    credentials: true,
+  });
   const servicePort: number = Number(process.env.CONTENT_SERVICE_PORT)
   if(!servicePort){
     process.exit(1);
