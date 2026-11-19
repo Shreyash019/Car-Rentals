@@ -1,0 +1,78 @@
+version: '3'
+
+vars:
+  MAINAPP: applications/main-app
+  ADMIN: applications/admin
+
+tasks:
+  default:
+    desc: List all tasks
+    cmds:
+      - task --list
+    silent: true
+
+  install: 
+    desc: Install dependencies for all projects
+    cmds:
+      - task: install-mainapp
+      - task: install-admin
+
+  install-mainapp:
+    internal: true
+    dir: '{{.MAINAPP}}'
+    cmds: [pnpm install]
+
+  install-admin:
+    internal: true
+    dir: '{{.ADMIN}}'
+    cmds: [pnpm install]
+
+  dev:
+    desc: Run all three app in parallet (Ctrl+C stops all)
+    deps: [dev-mainapp, dev-admin]
+  
+  dev-mainapp:
+    desc: Run main-app on :3005
+    dir: '{{.MAINAPP}}'
+    cmds: [pnpm dev]
+
+  dev-admin:
+    desc: Run main-app on :3011
+    dir: '{{.ADMIN}}'
+    cmds: [pnpm dev]
+
+  build:
+    desc: Build Everything
+    deps: [build-mainapp, build-admin]
+
+  build-mainapp:
+    desc: Build main-app
+    dir: '{{.MAINAPP}}'
+    cmds: [pnpm build]
+
+  build-admin:
+    desc: Build admin
+    dir: '{{.ADMIN}}'
+    cmds: [pnpm build]
+  
+  lint:
+    desc: Lint both web apps
+    deps: [lint-mainapp, lint-admin]
+
+  lint-mainapp:
+    desc: Lint mainapp
+    dir: '{{.MAINAPP}}'
+    cmds: [pnpm lint]
+
+  lint-admin:
+    desc: Lint admin
+    dir: '{{.ADMIN}}'
+    cmds: [pnpm lint]
+
+  clean:
+    desc: Remove build outputs
+    cmds:
+      - cmd: rm -rf {{.MAINAPP}}/.next {{.ADMIN}}/.next
+        platforms: [darwin, linux]
+      - cmd: powershell -NoProfile -Command "Remove-Item -Recurse -Force -ErrorAction SilentlyContinue {{.MAINAPP}}/.next, {{.ADMIN}}/.next"
+        platforms: [windows]
