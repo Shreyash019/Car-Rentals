@@ -17,8 +17,8 @@ const nextConfig: NextConfig = {
   async rewrites() {
     if(!ADMIN_URL) return [];
     return [
-      { source: "/admin", destination: `{ADMIN_URL}/admin`},
-      { source: "/admin/:path*", destination: `{ADMIN_URL}/admin/:path`},
+      { source: "/admin", destination: `${ADMIN_URL}/admin`},
+      { source: "/admin/:path*", destination: `${ADMIN_URL}/admin/:path*`},
     ]
   }
 };
