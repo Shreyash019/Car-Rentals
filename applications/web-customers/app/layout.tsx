@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { APP_THEME, BRAND, themeScript } from "@car-rentals/ui";
 import "./globals.css";
+import { Header, Footer } from "@/components";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: { default: `${BRAND.name} · ${BRAND.tagline}`, template: `%s · ${BRAND.name}` },
+  title: {
+    default: `${BRAND.name} · ${BRAND.tagline}`,
+    template: `%s · ${BRAND.name}`,
+  },
   description: BRAND.description,
   applicationName: BRAND.name,
   icons: { icon: BRAND.faviconUrl, apple: BRAND.appleIconUrl },
@@ -23,7 +27,9 @@ export const metadata: Metadata = {
     siteName: BRAND.name,
     title: BRAND.name,
     description: BRAND.description,
-    images: [{ url: BRAND.ogImageUrl, width: 1200, height: 630, alt: BRAND.name }],
+    images: [
+      { url: BRAND.ogImageUrl, width: 1200, height: 630, alt: BRAND.name },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -51,7 +57,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript() }} />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
