@@ -162,7 +162,7 @@ export function DataTable<T>({
                 key={col.id}
                 scope="col"
                 className={cn(
-                  "px-4 py-3 text-sm font-medium",
+                  "px-4 py-3 text-small font-medium",
                   ALIGN[col.align ?? "left"],
                   bordered && "border-r border-table-border last:border-r-0",
                   classNames.th,
@@ -180,7 +180,7 @@ export function DataTable<T>({
             <tr>
               <td
                 colSpan={columns.length}
-                className={cn("px-4 py-8 text-center text-sm text-muted-foreground", classNames.empty)}
+                className={cn("px-4 py-8 text-center text-small text-muted-foreground", classNames.empty)}
               >
                 {emptyMessage}
               </td>
@@ -208,7 +208,7 @@ export function DataTable<T>({
                     <td
                       key={col.id}
                       className={cn(
-                        "px-4 text-sm",
+                        "px-4 text-small",
                         ROW_PADDING[rowHeight],
                         ALIGN[col.align ?? "left"],
                         bordered && "border-r border-table-border last:border-r-0",

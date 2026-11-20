@@ -9,6 +9,16 @@ components. Every app imports it, so a change here shows up in all three apps.
 (source: `applications/ui-kit/`, local only). It renders every class and component below,
 has a light/dark toggle, and copies a class name when you click its label.
 
+### Brand at a glance
+
+| | Value | Where to change it |
+|---|---|---|
+| **Brand 1: blue** `#1d4ed8` | Role `primary`: main actions, links, focus, info | `styles.css` section 1 (`--brand-*`) |
+| **Brand 2: pink** `#e21266` | Role `highlight`: promos, offers, emphasis | `styles.css` section 1 (`--pink-*`) |
+| Brand gradient | `fx-text-gradient fx-grad-brand` (blue → pink) | follows the two colors above |
+| Name, tagline, logo, favicon, share image | `BRAND` object | `src/lib/brand.ts` (logo and icon URLs are placeholders for now) |
+| Fonts | Geist (body), `font-display` for headings | each app's `layout.tsx` (`next/font`) |
+
 Pages should only use the classes and components listed below. If you need something that
 isn't here, add it to this package first; don't hard-code it in a page.
 
@@ -21,11 +31,13 @@ packages/ui-package/src/styles.css   ← all tokens + reusable classes (edit the
           ▲
 applications/<app>/app/globals.css   ← @import "tailwindcss"; @import "@car-rentals/ui/styles.css";
           ▲
-applications/<app>/app/layout.tsx    ← imports globals.css, sets <html data-theme="light|dark">
+applications/<app>/app/layout.tsx    ← imports globals.css, BRAND metadata, themeScript() in <head>
 ```
 
-- **Theme switch:** `THEME=dark task dev` (or `NEXT_PUBLIC_THEME=dark`). It sets `data-theme` on `<html>`.
-- **Components:** `import { Button, Badge, Card, DataTable, ZoneLink, cn } from "@car-rentals/ui";`
+- **Theme:** visitors switch Light / Dark / Auto with `<ThemeToggle />`. The choice is remembered in their browser, and Auto follows the OS.
+  The default for new visitors is `NEXT_PUBLIC_THEME` (`light`, `dark` or `system`; unset = `system`). `THEME=dark task dev` still works.
+  Every app's `layout.tsx` needs `themeScript()` in `<head>` and `suppressHydrationWarning` on `<html>`.
+- **Components:** `import { Button, Badge, Card, DataTable, Logo, ThemeToggle, ZoneLink, cn, BRAND } from "@car-rentals/ui";`
 
 ### Golden rules
 
@@ -33,7 +45,8 @@ applications/<app>/app/layout.tsx    ← imports globals.css, sets <html data-th
 2. Every background role has a matching `-foreground` text color. Use them together, or use the `tone-*` class that sets both.
 3. Don't write `dark:` classes for colors. The role colors already switch in dark mode.
 4. Use the type classes (`text-h1` … `text-caption`) instead of `text-3xl md:text-5xl`. They scale with the screen on their own.
-5. Wrap pages in `container`. Use `auto-grid` for card lists. Don't set fixed pixel widths on layout boxes.
+5. Wrap pages in `page-container` (not Tailwind's `container`). Use `auto-grid` for card lists. Don't set fixed pixel widths on layout boxes.
+6. Don't use Tailwind's built-in palette (`bg-gray-50`, `text-zinc-600`, `bg-sky-200`). Its greys and blues differ from the theme's.
 
 ---
 
@@ -48,7 +61,7 @@ All color classes work with any Tailwind color prefix: `bg-`, `text-`, `border-`
 | background | `bg-background` | `text-foreground` | Page background and main text |
 | surface | `bg-surface` | `text-surface-foreground` | Cards, panels, dialogs, menus |
 | muted | `bg-muted` | `text-muted-foreground` | Quiet sections, disabled areas, secondary text |
-| primary | `bg-primary` / `hover:bg-primary-hover` | `text-primary-foreground` | Main action, selected state, brand moments |
+| primary (**brand 1, blue**) | `bg-primary` / `hover:bg-primary-hover` | `text-primary-foreground` | Main action, selected state, brand moments |
 | primary-subtle | `bg-primary-subtle` | `text-primary-subtle-foreground` | Light brand tint: hover on light buttons, highlights |
 | secondary | `bg-secondary` / `hover:bg-secondary-hover` | `text-secondary-foreground` | Less important actions |
 | accent (gold) | `bg-accent` / `hover:bg-accent-hover` | `text-accent-foreground` | Offers, "Book now", premium cars. Use sparingly |
@@ -58,21 +71,26 @@ All color classes work with any Tailwind color prefix: `bg-`, `text-`, `border-`
 | warning-subtle | `bg-warning-subtle` | `text-warning-subtle-foreground` | Warning badges and banners |
 | danger | `bg-danger` / `hover:bg-danger-hover` | `text-danger-foreground` | Delete, cancel booking, errors |
 | danger-subtle | `bg-danger-subtle` | `text-danger-subtle-foreground` | Error badges and banners |
-| highlight (pink) | `bg-highlight` / `hover:bg-highlight-hover` | `text-highlight-foreground` | Promotions, "Hot deal", app download |
+| highlight (**brand 2, pink**) | `bg-highlight` / `hover:bg-highlight-hover` | `text-highlight-foreground` | Promotions, "Hot deal", app download |
 | highlight-subtle | `bg-highlight-subtle` | `text-highlight-subtle-foreground` | Promo badges and banners |
 | strong (navy) | `bg-strong` | `text-strong-foreground` | Header bar, hero band |
 | deep (indigo) | `bg-deep` / `hover:bg-deep-hover` | `text-deep-foreground` | Footer, secondary dark bands |
-| info (bright blue) | `bg-info` | `text-info-foreground` | Info banners, "Free cancellation" |
+| info (brand blue) | `bg-info` | `text-info-foreground` | Info banners, "Free cancellation" |
 | info-subtle | `bg-info-subtle` | `text-info-subtle-foreground` | Info badges and notes |
 | callout (orange) | `bg-callout` | `text-callout-foreground` | Urgency: "Only 2 left", "Ends tonight" |
 | callout-subtle | `bg-callout-subtle` | `text-callout-subtle-foreground` | Urgency badges |
 | sky | `bg-sky` | `text-sky-foreground` | Soft section background, maps, illustrations |
-| rating (yellow) | `bg-rating` | `text-rating-foreground` | Stars and review scores |
+| rating (gold) | `bg-rating` | `text-rating-foreground` | Stars and review scores |
 
-The last ten roles were added from two reference sites: pink, indigo and sky from GO Rentals
-(gorentals.co.nz), and navy, bright blue, orange and yellow from Booking.com cars. Their exact
-hex values are in `styles.css` section 1, each marked with its source. A few dark-mode shades
-are marked "derived" because the sites don't define them.
+Pink, indigo and sky come from GO Rentals (gorentals.co.nz); navy and orange come from
+Booking.com cars. `info` and `rating` now reuse brand blue and gold, so there are fewer
+near-identical shades. A few dark-mode shades are marked "derived" in `styles.css` because the
+sites don't define them.
+
+**Colored text:** only these roles are readable as a text color on the page background:
+`text-primary` (light mode), `text-link`, `text-highlight` (light mode), `text-success`,
+`text-danger`, and every `text-*-subtle-foreground`. Don't use `text-accent`, `text-warning`,
+`text-rating` or `text-callout` for text. They are too light (under 3:1); use them only as backgrounds.
 
 ### Lines, focus and links
 
@@ -100,10 +118,10 @@ are marked "derived" because the sites don't define them.
 | `tone-highlight` | Pink background, white text |
 | `tone-strong` | Navy background, white text |
 | `tone-deep` | Indigo background, white text |
-| `tone-info` | Bright blue background, white text |
+| `tone-info` | Brand blue background, white text |
 | `tone-callout` | Orange background, dark text |
 | `tone-sky` | Sky background, navy text |
-| `tone-rating` | Yellow background, dark text |
+| `tone-rating` | Gold background, dark text |
 
 ```tsx
 <div className="tone-accent rounded-card p-gutter">Weekend offer: 20% off SUVs</div>
@@ -129,8 +147,12 @@ one element look like another (for example a `<p>` styled as a heading).
 | `text-small` | 14px | 400 | Table cells, buttons, helper text |
 | `text-caption` | 12px | 400 | Badges, timestamps, footnotes |
 
-Fonts: `font-sans` (Geist, the default) and `font-mono` (Geist Mono, for booking IDs and codes).
-Headings get `text-wrap: balance` and paragraphs get `text-wrap: pretty` automatically.
+Fonts: `font-sans` (Geist, the default), `font-display` (headings; Geist until you pick a brand
+heading font) and `font-mono` (Geist Mono, for booking IDs and codes).
+Headings get `font-display` and `text-wrap: balance`, and paragraphs get `text-wrap: pretty`, automatically.
+
+**To give headings their own font:** in each app's `layout.tsx`, load it with `next/font` using
+`variable: "--font-brand-display"` and add its `.variable` to `<html className>`. Nothing else changes.
 
 ---
 
@@ -138,7 +160,7 @@ Headings get `text-wrap: balance` and paragraphs get `text-wrap: pretty` automat
 
 | Class | What it does |
 |---|---|
-| `container` | Full width up to 80rem (1280px), centered, side padding that grows with the screen. Put it on every page wrapper. |
+| `page-container` | Full width up to 80rem (1280px), centered, side padding that grows with the screen. Put it on every page wrapper. (Tailwind's own `container` jumps between breakpoint widths, so don't use it.) |
 | `section` | Vertical padding between big page sections (48 → 96px). |
 | `stack` | Vertical flex column with `gap-gutter` between children. |
 | `auto-grid` | Grid that fits as many 16rem (256px) columns as there is room for. One column on phones. Change the minimum with `[--auto-grid-min:20rem]`. |
@@ -149,7 +171,7 @@ Headings get `text-wrap: balance` and paragraphs get `text-wrap: pretty` automat
 Normal Tailwind spacing (`p-4`, `gap-2`, `mt-6` …) is fine for small, fixed gaps inside components.
 
 ```tsx
-<main className="container section stack">
+<main className="page-container section stack">
   <h1>Available cars</h1>
   <div className="auto-grid">
     <Card>…</Card>
@@ -414,6 +436,24 @@ See the props documented in `src/components/data-table.tsx`. Main ones: `data`, 
 `getRowId`, `onRowClick`, `variant` (`default` | `striped` | `bordered`), `rowHeight`,
 `stickyHeader`.
 
+### Logo
+
+```tsx
+<Logo />                          // full logo (icon + name), 32px tall
+<Logo variant="mark" />           // square icon only
+<Logo className="h-10" />         // size with a height class
+```
+
+The image URLs come from `BRAND` in `src/lib/brand.ts`. They are placeholders until the real logo exists.
+
+### ThemeToggle
+
+```tsx
+<ThemeToggle />                   // cycles ☀ Light → ☾ Dark → ◐ Auto, remembered per browser
+```
+
+It needs `themeScript()` in the app's `<head>`, which every app layout already has.
+
 ### ZoneLink
 
 Links to a page in **another app**. This does a full page load.
@@ -435,12 +475,15 @@ Merges class names and resolves Tailwind conflicts (the last one wins):
 
 | Want to… | Edit |
 |---|---|
-| Rebrand (new blue, new gold) | `styles.css` → section **1. Palette** (hex values only) |
+| Rebrand (new blue, new pink) | `styles.css` → section **1. Palette** (hex values only). Also update `themeColor` in `src/lib/brand.ts`. |
+| Change the name, tagline, logo, favicon or share image | `src/lib/brand.ts` (`BRAND`) |
+| Change the default theme for new visitors | `NEXT_PUBLIC_THEME` = `light` / `dark` / `system` |
 | Change what a role uses (for example primary uses a darker blue) | `styles.css` → section **2** (`:root` for light, `[data-theme="dark"]` for dark) |
 | Change text sizes, spacing, radius, shadows | `styles.css` → section **3b** |
 | Add a reusable class | `styles.css` → section **5** (`@utility my-class { … }`) |
 | Add a component | `src/components/<name>.tsx`, then export it from `src/index.ts` |
-| Change fonts | `next/font` imports in each app's `app/layout.tsx` |
+| Change fonts | `next/font` imports in each app's `app/layout.tsx` (headings: `--font-brand-display`) |
+| Add a custom text size, radius, shadow or spacing name | `styles.css` **and** the matching list in `src/lib/cn.ts` |
 | Style one app differently | That app's `globals.css`, **below** the two imports (override `--primary` etc. in `:root` **and** `[data-theme="dark"]`) |
 
 When you add a new background role, also add its `-foreground` pair. Check the pair's contrast
@@ -456,7 +499,9 @@ When you add a new background role, also add its `-foreground` pair. Check the p
 | `text-gray-500` | `text-muted-foreground` |
 | `dark:bg-zinc-900` | `bg-surface` (it switches on its own) |
 | `text-2xl md:text-4xl lg:text-5xl` | `text-h1` |
-| `w-[1200px] mx-auto px-6` | `container` |
+| `w-[1200px] mx-auto px-6` or `container` | `page-container` |
+| `bg-gray-50`, `text-zinc-600` (Tailwind palette) | `bg-muted`, `text-muted-foreground` |
+| `text-warning` / `text-accent` for text | `text-warning-subtle-foreground` / `bg-accent text-accent-foreground` |
 | `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4` for cards | `auto-grid` |
 | Copy-pasting 10 Tailwind classes for every input | `field` |
 | `<button className="…long list…">` | `<Button variant="…">` |

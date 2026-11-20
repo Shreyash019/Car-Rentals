@@ -19,7 +19,11 @@
    1. PALETTE  (not exposed as classes on purpose)
    -------------------------------------------------------------------------- */
 :root {
-  /* Brand (blue) */
+  /* ★ BRAND — two main colors. Rebrand here.
+       Brand 1: blue  (--brand-600) → role "primary"   (main actions, links, focus)
+       Brand 2: pink  (--pink-600)  → role "highlight" (promos, offers, emphasis) */
+
+  /* Brand 1 (blue) */
   --brand-50: #eff6ff;
   --brand-100: #dbeafe;
   --brand-200: #bfdbfe;
@@ -65,7 +69,7 @@
   --red-700: #b91c1c;
   --red-950: #450a0a;
 
-  /* Reference: GO Rentals (gorentals.co.nz). "derived" = not on the site, made for dark mode/tints */
+  /* Brand 2 (pink) — from GO Rentals. "derived" = not on the site, made for dark mode/tints */
   --pink-50: #fdf1f6;
   --pink-200: #f598ac;
   --pink-600: #e21266;   /* goPink: buttons, links, theme-color */
@@ -84,12 +88,8 @@
   --navy-200: #cee6ff;   /* brand_primary_foreground (dark) */
   --navy-600: #003b95;   /* brand_primary_background */
   --navy-950: #041b43;
-  --azure-50: #f0f6ff;   /* action_background_alt */
-  --azure-400: #57a6f4;  /* action_foreground (dark) */
-  --azure-600: #006ce4;  /* action / cta_background */
-  --azure-700: #0057b8;  /* action_highlighted (hover) */
-  --azure-950: #0b2a4f;  /* derived */
-  --yellow-500: #ffb700; /* brand_secondary / accent_background */
+  /* (Booking's action blue and yellow were merged into brand blue and gold
+     to avoid near-duplicate colors.) */
   --orange-50: #fef3ec;  /* callout_background_alt */
   --orange-500: #f56700; /* callout_background */
   --orange-800: #923e01; /* callout_foreground */
@@ -162,10 +162,10 @@
   --deep-hover: var(--indigo-700);
   --deep-foreground: var(--gray-0);
 
-  --info: var(--azure-600);              /* info banners, "Free cancellation" */
+  --info: var(--brand-600);              /* info banners, "Free cancellation" (brand blue) */
   --info-foreground: var(--gray-0);
-  --info-subtle: var(--azure-50);
-  --info-subtle-foreground: var(--azure-700);
+  --info-subtle: var(--brand-50);
+  --info-subtle-foreground: var(--brand-700);
 
   --callout: var(--orange-500);          /* urgency: "Only 2 left", "Ends tonight" */
   --callout-foreground: var(--ink-900);
@@ -175,7 +175,7 @@
   --sky: var(--sky-100);                 /* soft section background, maps, illustrations */
   --sky-foreground: var(--navy-600);
 
-  --rating: var(--yellow-500);           /* stars, review scores */
+  --rating: var(--gold-400);             /* stars, review scores (same gold as accent) */
   --rating-foreground: var(--ink-900);
 }
 
@@ -220,8 +220,8 @@
   --highlight-subtle: var(--pink-950);
   --highlight-subtle-foreground: var(--pink-200);
 
-  --info-subtle: var(--azure-950);
-  --info-subtle-foreground: var(--azure-400);
+  --info-subtle: var(--brand-950);
+  --info-subtle-foreground: var(--brand-300);
 
   --callout-subtle: var(--orange-950);
   --callout-subtle-foreground: var(--orange-500);
@@ -311,8 +311,11 @@
   --color-table-hover: color-mix(in oklab, var(--foreground) 4%, transparent);
   --color-table-stripe: color-mix(in oklab, var(--foreground) 2%, transparent);
 
-  /* Fonts: next/font variables are set on <html> in each app's layout.tsx */
+  /* Fonts: next/font variables are set on <html> in each app's layout.tsx.
+     font-display = headings. To give headings their own brand font, load it with
+     next/font as --font-brand-display and it is picked up here automatically. */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-brand-display, var(--font-geist-sans)), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
@@ -394,7 +397,18 @@
     overflow-wrap: break-word; /* long emails/URLs never push the page wider */
   }
 
-  h1, h2, h3, h4 { text-wrap: balance; }
+  /* A plain `border` class uses the theme border color, not Tailwind's grey */
+  *,
+  ::before,
+  ::after,
+  ::backdrop {
+    border-color: var(--border);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: --theme(--font-display);
+    text-wrap: balance;
+  }
   p { text-wrap: pretty; }
 
   h1 {
@@ -463,8 +477,9 @@
    5. REUSABLE UTILITIES  (write once, use as a class name everywhere)
    -------------------------------------------------------------------------- */
 
-/* Centered page width with fluid side padding. Use on every page wrapper. */
-@utility container {
+/* Centered page width (max 1280px) with fluid side padding. Use on every page wrapper.
+   Named page-container because Tailwind's own `container` adds breakpoint widths. */
+@utility page-container {
   width: 100%;
   max-width: 80rem;
   margin-inline: auto;
@@ -880,7 +895,7 @@
         fx-border-spin and fx-scroll-progress. Use with one of those. ---- */
 @utility fx-grad-brand {
   --fx-from: var(--primary);
-  --fx-via: var(--info);
+  --fx-via: color-mix(in oklab, var(--primary), var(--highlight));
   --fx-to: var(--highlight);
 }
 @utility fx-grad-royal {
@@ -890,8 +905,8 @@
 }
 @utility fx-grad-ocean {
   --fx-from: var(--strong);
-  --fx-via: var(--info);
-  --fx-to: var(--azure-400);
+  --fx-via: var(--primary);
+  --fx-to: var(--brand-400);
 }
 @utility fx-grad-sunset {
   --fx-from: var(--highlight);
@@ -1101,7 +1116,7 @@
     z-index: 50;
     height: 3px;
     transform-origin: 0 50%;
-    background-image: linear-gradient(90deg, var(--fx-from, var(--primary)), var(--fx-via, var(--info)), var(--fx-to, var(--highlight)));
+    background-image: linear-gradient(90deg, var(--fx-from, var(--primary)), var(--fx-to, var(--highlight)));
     animation: fx-progress linear both;
     animation-timeline: scroll(root);
   }
@@ -1176,7 +1191,7 @@
 /* Gradient underline (uses the gradient preset colors). */
 @utility fx-underline-gradient {
   text-decoration: none;
-  background-image: linear-gradient(90deg, var(--fx-from, var(--primary)), var(--fx-via, var(--info)), var(--fx-to, var(--highlight)));
+  background-image: linear-gradient(90deg, var(--fx-from, var(--primary)), var(--fx-to, var(--highlight)));
   background-repeat: no-repeat;
   background-position: 0 100%;
   background-size: 100% 0.12em;
