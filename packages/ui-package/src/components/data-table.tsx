@@ -152,7 +152,7 @@ export function DataTable<T>({
         <thead
           className={cn(
             "bg-table-header",
-            stickyHeader && "sticky top-0 z-10 bg-background",
+            stickyHeader && "sticky top-0 z-10 bg-surface",
             classNames.thead,
           )}
         >
@@ -180,7 +180,7 @@ export function DataTable<T>({
             <tr>
               <td
                 colSpan={columns.length}
-                className={cn("px-4 py-8 text-center text-sm opacity-70", classNames.empty)}
+                className={cn("px-4 py-8 text-center text-sm text-muted-foreground", classNames.empty)}
               >
                 {emptyMessage}
               </td>
@@ -197,7 +197,7 @@ export function DataTable<T>({
                   "border-b border-table-border last:border-0",
                   variant === "striped" && "even:bg-table-stripe",
                   rowClickable &&
-                    "cursor-pointer hover:bg-table-hover focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-500",
+                    "cursor-pointer hover:bg-table-hover focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring",
                   classNames.row,
                   rowClassName?.(row),
                 )}
@@ -222,7 +222,7 @@ export function DataTable<T>({
                           onClick={(e) => col.onCellClick!(row, e)}
                           aria-label={col.cellLabel?.(row)}
                           className={cn(
-                            "rounded-sm text-left text-brand-600 underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-brand-500",
+                            "rounded-sm text-left text-link underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-ring",
                             classNames.cellButton,
                           )}
                         >

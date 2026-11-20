@@ -1,5 +1,18 @@
+/* ==========================================================================
+   @car-rentals/ui — design system (the ONE place for theme & branding)
+
+   Layers:
+     1. Palette      raw colors. Rebrand = change these hex values.
+     2. Semantic     what a color is FOR (primary, surface, danger...).
+                     Dark mode only overrides this layer.
+     3. Tailwind     @theme maps semantic tokens to classes (bg-primary...).
+   Pages/components use ONLY semantic classes, never palette values.
+   ========================================================================== */
+
+/* Scan this package's components for Tailwind classes (path is relative to this file) */
 @source "./";
 
+/* Tailwind `dark:` classes follow data-theme on <html>, not the OS setting */
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 /* --------------------------------------------------------------------------
@@ -51,6 +64,37 @@
   --red-600: #dc2626;
   --red-700: #b91c1c;
   --red-950: #450a0a;
+
+  /* Reference: GO Rentals (gorentals.co.nz). "derived" = not on the site, made for dark mode/tints */
+  --pink-50: #fdf1f6;
+  --pink-200: #f598ac;
+  --pink-600: #e21266;   /* goPink: buttons, links, theme-color */
+  --pink-700: #cb105c;   /* hover */
+  --pink-800: #b40e51;   /* pressed */
+  --pink-950: #3d0a1f;   /* derived */
+  --indigo-50: #efeef8;  /* derived */
+  --indigo-300: #a9a4e6; /* derived */
+  --indigo-600: #332c81; /* goBlue */
+  --indigo-700: #2b256e; /* hover */
+  --indigo-800: #251f5c; /* pressed */
+  --sky-100: #d9edfa;    /* map background */
+  --sky-900: #0b2236;    /* derived */
+
+  /* Reference: Booking.com cars (its --bui_color_* tokens) */
+  --navy-200: #cee6ff;   /* brand_primary_foreground (dark) */
+  --navy-600: #003b95;   /* brand_primary_background */
+  --navy-950: #041b43;
+  --azure-50: #f0f6ff;   /* action_background_alt */
+  --azure-400: #57a6f4;  /* action_foreground (dark) */
+  --azure-600: #006ce4;  /* action / cta_background */
+  --azure-700: #0057b8;  /* action_highlighted (hover) */
+  --azure-950: #0b2a4f;  /* derived */
+  --yellow-500: #ffb700; /* brand_secondary / accent_background */
+  --orange-50: #fef3ec;  /* callout_background_alt */
+  --orange-500: #f56700; /* callout_background */
+  --orange-800: #923e01; /* callout_foreground */
+  --orange-950: #411b01; /* callout_background_alt (dark) */
+  --ink-900: #242424;    /* on_accent / on_callout text */
 }
 
 /* --------------------------------------------------------------------------
@@ -103,6 +147,36 @@
   --danger-foreground: var(--gray-0);
   --danger-subtle: var(--red-50);
   --danger-subtle-foreground: var(--red-700);
+
+  /* Extra roles (from GO Rentals + Booking.com references) */
+  --highlight: var(--pink-600);          /* promos, "Hot deal", app download */
+  --highlight-hover: var(--pink-700);
+  --highlight-foreground: var(--gray-0);
+  --highlight-subtle: var(--pink-50);
+  --highlight-subtle-foreground: var(--pink-800);
+
+  --strong: var(--navy-600);             /* header bar, hero band */
+  --strong-foreground: var(--gray-0);
+
+  --deep: var(--indigo-600);             /* footer, secondary dark bands */
+  --deep-hover: var(--indigo-700);
+  --deep-foreground: var(--gray-0);
+
+  --info: var(--azure-600);              /* info banners, "Free cancellation" */
+  --info-foreground: var(--gray-0);
+  --info-subtle: var(--azure-50);
+  --info-subtle-foreground: var(--azure-700);
+
+  --callout: var(--orange-500);          /* urgency: "Only 2 left", "Ends tonight" */
+  --callout-foreground: var(--ink-900);
+  --callout-subtle: var(--orange-50);
+  --callout-subtle-foreground: var(--orange-800);
+
+  --sky: var(--sky-100);                 /* soft section background, maps, illustrations */
+  --sky-foreground: var(--navy-600);
+
+  --rating: var(--yellow-500);           /* stars, review scores */
+  --rating-foreground: var(--ink-900);
 }
 
 /* Dark: only active when <html data-theme="dark"> */
@@ -142,6 +216,18 @@
 
   --danger-subtle: var(--red-950);
   --danger-subtle-foreground: var(--red-300);
+
+  --highlight-subtle: var(--pink-950);
+  --highlight-subtle-foreground: var(--pink-200);
+
+  --info-subtle: var(--azure-950);
+  --info-subtle-foreground: var(--azure-400);
+
+  --callout-subtle: var(--orange-950);
+  --callout-subtle-foreground: var(--orange-500);
+
+  --sky: var(--sky-900);
+  --sky-foreground: var(--navy-200);
 }
 
 /* --------------------------------------------------------------------------
@@ -188,6 +274,35 @@
   --color-danger-foreground: var(--danger-foreground);
   --color-danger-subtle: var(--danger-subtle);
   --color-danger-subtle-foreground: var(--danger-subtle-foreground);
+
+  --color-highlight: var(--highlight);
+  --color-highlight-hover: var(--highlight-hover);
+  --color-highlight-foreground: var(--highlight-foreground);
+  --color-highlight-subtle: var(--highlight-subtle);
+  --color-highlight-subtle-foreground: var(--highlight-subtle-foreground);
+
+  --color-strong: var(--strong);
+  --color-strong-foreground: var(--strong-foreground);
+
+  --color-deep: var(--deep);
+  --color-deep-hover: var(--deep-hover);
+  --color-deep-foreground: var(--deep-foreground);
+
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-info-subtle: var(--info-subtle);
+  --color-info-subtle-foreground: var(--info-subtle-foreground);
+
+  --color-callout: var(--callout);
+  --color-callout-foreground: var(--callout-foreground);
+  --color-callout-subtle: var(--callout-subtle);
+  --color-callout-subtle-foreground: var(--callout-subtle-foreground);
+
+  --color-sky: var(--sky);
+  --color-sky-foreground: var(--sky-foreground);
+
+  --color-rating: var(--rating);
+  --color-rating-foreground: var(--rating-foreground);
 
   /* Tints of the text color: correct in light AND dark with no override */
   --color-skeleton: color-mix(in oklab, var(--foreground) 8%, transparent);
@@ -337,6 +452,7 @@
     *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
+      animation-timeline: auto !important; /* also stops scroll-driven effects */
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
@@ -433,7 +549,7 @@
 @utility skeleton {
   border-radius: var(--radius-control);
   background-color: var(--color-skeleton);
-  animation: var(--animate-pulse);
+  animation: fx-skeleton 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Color pairs: background + its matching text color in one class. */
@@ -445,3 +561,655 @@
 @utility tone-success { background-color: var(--success); color: var(--success-foreground); }
 @utility tone-warning { background-color: var(--warning); color: var(--warning-foreground); }
 @utility tone-danger { background-color: var(--danger); color: var(--danger-foreground); }
+@utility tone-highlight { background-color: var(--highlight); color: var(--highlight-foreground); }
+@utility tone-strong { background-color: var(--strong); color: var(--strong-foreground); }
+@utility tone-deep { background-color: var(--deep); color: var(--deep-foreground); }
+@utility tone-info { background-color: var(--info); color: var(--info-foreground); }
+@utility tone-callout { background-color: var(--callout); color: var(--callout-foreground); }
+@utility tone-sky { background-color: var(--sky); color: var(--sky-foreground); }
+@utility tone-rating { background-color: var(--rating); color: var(--rating-foreground); }
+
+/* --------------------------------------------------------------------------
+   6. EFFECTS  (animations & text effects, all prefixed fx-)
+
+   Color: effects use --fx-color (default: primary). Change it per element with
+          fx-color-<any theme color>, e.g. "fx-glow fx-color-highlight".
+   Delay: fx-delay-<ms>, e.g. "fx-fade-up fx-delay-150" (for staggered lists).
+   Rules: one looping/entrance animation per element (fx-glow, fx-pulse-ring,
+          fx-float, fx-fade-*, fx-shake…). fx-shine, fx-lift, fx-press and the
+          text effects combine freely with them.
+   Motion: everything stops for users with "reduce motion" on (see section 4).
+   -------------------------------------------------------------------------- */
+
+@keyframes fx-skeleton { 50% { opacity: 0.5; } }
+
+@keyframes fx-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px 0 color-mix(in oklab, var(--fx-color, var(--primary)) 35%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--fx-color, var(--primary)) 20%, transparent),
+      0 0 24px 6px color-mix(in oklab, var(--fx-color, var(--primary)) 55%, transparent);
+  }
+}
+@keyframes fx-ring {
+  from { box-shadow: 0 0 0 0 color-mix(in oklab, var(--fx-color, var(--primary)) 55%, transparent); }
+  to { box-shadow: 0 0 0 14px color-mix(in oklab, var(--fx-color, var(--primary)) 0%, transparent); }
+}
+@keyframes fx-shine {
+  0% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
+}
+@keyframes fx-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes fx-fade-in { from { opacity: 0; } }
+@keyframes fx-fade-up { from { opacity: 0; transform: translateY(12px); } }
+@keyframes fx-scale-in { from { opacity: 0; transform: scale(0.95); } }
+@keyframes fx-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+@keyframes fx-text-shimmer { to { background-position: -100% 0; } }
+@keyframes fx-marker { from { background-size: 0% 40%; } }
+@keyframes fx-border-pan { to { background-position: 0 0, 100% 0; } }
+
+/* Effect color + delay helpers */
+@utility fx-color-* {
+  --fx-color: --value(--color-*);
+}
+@utility fx-delay-* {
+  --fx-delay: calc(--value(integer) * 1ms);
+}
+
+/* ---- Buttons & surfaces ---- */
+
+/* Soft pulsing glow around the element (CTA, "Book now"). */
+@utility fx-glow {
+  animation: fx-glow 2.4s ease-in-out infinite;
+}
+
+/* Glow only while hovered or focused. */
+@utility fx-glow-hover {
+  transition: box-shadow 250ms var(--ease-standard);
+  &:hover,
+  &:focus-visible {
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--fx-color, var(--primary)) 20%, transparent),
+      0 0 24px 6px color-mix(in oklab, var(--fx-color, var(--primary)) 50%, transparent);
+  }
+}
+
+/* Light sweep that passes across the element every few seconds. */
+@utility fx-shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.45) 50%, transparent 70%);
+    transform: translateX(-100%);
+    animation: fx-shine 3s ease-in-out infinite;
+  }
+}
+
+/* Light sweep once, on hover. */
+@utility fx-shine-hover {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.45) 50%, transparent 70%);
+    transform: translateX(-100%);
+  }
+  &:hover::after {
+    animation: fx-shine 0.9s ease-out;
+  }
+}
+
+/* Expanding ring, like a radar ping (live status, new message, key CTA). */
+@utility fx-pulse-ring {
+  animation: fx-ring 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Moving brand-gradient border. Works on any box; set a radius as usual. */
+@utility fx-gradient-border {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(90deg, var(--primary), var(--highlight), var(--accent), var(--primary)) border-box;
+  background-size: 100% 100%, 300% 100%;
+  animation: fx-border-pan 4s linear infinite alternate;
+}
+
+/* Rises with a bigger shadow on hover (clickable cards). */
+@utility fx-lift {
+  transition: transform 200ms var(--ease-standard), box-shadow 200ms var(--ease-standard);
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-overlay);
+  }
+}
+
+/* Shrinks slightly while pressed (tactile buttons). */
+@utility fx-press {
+  transition: transform 100ms var(--ease-standard);
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Gentle up-and-down hover in place (car images, illustrations). */
+@utility fx-float {
+  animation: fx-float 3s ease-in-out infinite;
+}
+
+/* ---- Entrance (play once when the element appears) ---- */
+
+@utility fx-fade-in {
+  animation: fx-fade-in 400ms var(--ease-standard) both;
+  animation-delay: var(--fx-delay, 0ms);
+}
+@utility fx-fade-up {
+  animation: fx-fade-up 500ms var(--ease-standard) both;
+  animation-delay: var(--fx-delay, 0ms);
+}
+@utility fx-scale-in {
+  animation: fx-scale-in 300ms var(--ease-standard) both;
+  animation-delay: var(--fx-delay, 0ms);
+}
+
+/* Shake once (wrong input). Re-trigger by re-rendering with a new key. */
+@utility fx-shake {
+  animation: fx-shake 400ms ease-in-out both;
+}
+
+/* ---- Text effects ---- */
+
+/* Gradient text. Default primary → highlight; pick a preset with fx-grad-<name>
+   or set [--fx-from:…] [--fx-via:…] [--fx-to:…]. Add fx-gradient-animate to make it flow. */
+@utility fx-text-gradient {
+  background-image: linear-gradient(
+    var(--fx-angle-deg, 90deg),
+    var(--fx-from, var(--primary)),
+    var(--fx-via, color-mix(in oklab, var(--fx-from, var(--primary)), var(--fx-to, var(--highlight)))),
+    var(--fx-to, var(--highlight))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Light band sliding across text ("Finding cars…" loading labels). */
+@utility fx-text-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    var(--muted-foreground) 40%,
+    var(--foreground) 50%,
+    var(--muted-foreground) 60%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: fx-text-shimmer 2s linear infinite;
+}
+
+/* Soft colored glow around text (uses --fx-color). */
+@utility fx-text-glow {
+  text-shadow:
+    0 0 2px color-mix(in oklab, var(--fx-color, var(--primary)) 40%, transparent),
+    0 0 14px color-mix(in oklab, var(--fx-color, var(--primary)) 60%, transparent);
+}
+
+/* Underline that grows from left on hover (nav links). */
+@utility fx-underline {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition: background-size 300ms var(--ease-standard);
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 2px;
+  }
+}
+
+/* Highlighter-pen stroke that draws in behind text (uses --fx-color, default accent). */
+@utility fx-marker {
+  padding-inline: 0.1em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background-image: linear-gradient(
+    color-mix(in oklab, var(--fx-color, var(--accent)) 45%, transparent),
+    color-mix(in oklab, var(--fx-color, var(--accent)) 45%, transparent)
+  );
+  background-repeat: no-repeat;
+  background-position: 0 85%;
+  background-size: 100% 40%;
+  animation: fx-marker 800ms var(--ease-standard) both;
+  animation-delay: var(--fx-delay, 0ms);
+}
+
+/* ==========================================================================
+   6b. MORE EFFECTS
+   ========================================================================== */
+
+/* Animatable angle for spinning conic gradients */
+@property --fx-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes fx-angle { to { --fx-angle: 360deg; } }
+@keyframes fx-gradient-pan {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+@keyframes fx-aurora {
+  from { background-position: 0% 0%, 100% 0%, 50% 100%; }
+  to { background-position: 100% 50%, 0% 100%, 50% 0%; }
+}
+@keyframes fx-wiggle {
+  0%, 40%, 100% { transform: rotate(0); }
+  8% { transform: rotate(-6deg); }
+  16% { transform: rotate(6deg); }
+  24% { transform: rotate(-4deg); }
+  32% { transform: rotate(3deg); }
+}
+@keyframes fx-bounce {
+  0%, 100% { transform: translateY(0); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
+  50% { transform: translateY(-8px); animation-timing-function: cubic-bezier(0.4, 0, 0.7, 1); }
+}
+@keyframes fx-heartbeat {
+  0%, 42%, 100% { transform: scale(1); }
+  14%, 28% { transform: scale(1.08); }
+  21% { transform: scale(1); }
+}
+@keyframes fx-breathe {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.03); opacity: 0.85; }
+}
+@keyframes fx-spin { to { transform: rotate(360deg); } }
+@keyframes fx-slide-left { from { opacity: 0; transform: translateX(-24px); } }
+@keyframes fx-slide-right { from { opacity: 0; transform: translateX(24px); } }
+@keyframes fx-slide-down { from { opacity: 0; transform: translateY(-16px); } }
+@keyframes fx-zoom-in { from { opacity: 0; transform: scale(0.8); } }
+@keyframes fx-blur-in { from { opacity: 0; filter: blur(8px); } }
+@keyframes fx-flip-in { from { opacity: 0; transform: perspective(600px) rotateX(-70deg); } }
+@keyframes fx-pop-in {
+  0% { opacity: 0; transform: scale(0.6); }
+  60% { opacity: 1; transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+@keyframes fx-reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes fx-typing { from { width: 0; } }
+@keyframes fx-caret { 50% { border-color: transparent; } }
+@keyframes fx-neon {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.55; }
+}
+@keyframes fx-letter-up { from { opacity: 0; transform: translateY(0.45em); } }
+@keyframes fx-letter-wave {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-0.25em); }
+}
+@keyframes fx-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes fx-scroll-scale { from { opacity: 0; transform: scale(0.9); } }
+
+/* ---- Gradient presets: set the colors used by fx-text-gradient, fx-bg-gradient,
+        fx-border-spin and fx-scroll-progress. Use with one of those. ---- */
+@utility fx-grad-brand {
+  --fx-from: var(--primary);
+  --fx-via: var(--info);
+  --fx-to: var(--highlight);
+}
+@utility fx-grad-royal {
+  --fx-from: var(--deep);
+  --fx-via: var(--primary);
+  --fx-to: var(--highlight);
+}
+@utility fx-grad-ocean {
+  --fx-from: var(--strong);
+  --fx-via: var(--info);
+  --fx-to: var(--azure-400);
+}
+@utility fx-grad-sunset {
+  --fx-from: var(--highlight);
+  --fx-via: var(--callout);
+  --fx-to: var(--rating);
+}
+@utility fx-grad-gold {
+  --fx-from: var(--gold-800);
+  --fx-via: var(--gold-400);
+  --fx-to: var(--gold-800);
+}
+@utility fx-grad-forest {
+  --fx-from: var(--green-800);
+  --fx-via: var(--success);
+  --fx-to: var(--info);
+}
+/* Gradient direction: fx-grad-angle-45, fx-grad-angle-180 … */
+@utility fx-grad-angle-* {
+  --fx-angle-deg: calc(--value(integer) * 1deg);
+}
+
+/* ---- Backgrounds ---- */
+
+/* Gradient background from the preset / --fx-from/via/to. Text color is up to you. */
+@utility fx-bg-gradient {
+  background-image: linear-gradient(
+    var(--fx-angle-deg, 135deg),
+    var(--fx-from, var(--primary)),
+    var(--fx-via, color-mix(in oklab, var(--fx-from, var(--primary)), var(--fx-to, var(--highlight)))),
+    var(--fx-to, var(--highlight))
+  );
+}
+
+/* Makes fx-bg-gradient or fx-text-gradient flow slowly back and forth. */
+@utility fx-gradient-animate {
+  background-size: 200% 200%;
+  animation: fx-gradient-pan 5s ease-in-out infinite alternate;
+}
+
+/* Soft moving color blobs (hero sections). Put content on top as normal. */
+@utility fx-bg-aurora {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(40% 50% at 20% 30%, color-mix(in oklab, var(--fx-from, var(--primary)) 45%, transparent), transparent 70%),
+    radial-gradient(35% 45% at 80% 20%, color-mix(in oklab, var(--fx-via, var(--highlight)) 40%, transparent), transparent 70%),
+    radial-gradient(45% 55% at 50% 90%, color-mix(in oklab, var(--fx-to, var(--info)) 35%, transparent), transparent 70%);
+  background-size: 200% 200%, 200% 200%, 200% 200%;
+  animation: fx-aurora 14s ease-in-out infinite alternate;
+}
+
+/* Glow from the top center (section headers, pricing). */
+@utility fx-bg-spotlight {
+  background-image: radial-gradient(60% 50% at 50% 0%, color-mix(in oklab, var(--fx-color, var(--primary)) 25%, transparent), transparent 70%);
+}
+
+/* Dot pattern. Change spacing with [--fx-size:24px]. */
+@utility fx-bg-dots {
+  background-image: radial-gradient(color-mix(in oklab, var(--foreground) 18%, transparent) 1px, transparent 1.5px);
+  background-size: var(--fx-size, 16px) var(--fx-size, 16px);
+}
+
+/* Line grid pattern. Change spacing with [--fx-size:48px]. */
+@utility fx-bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--foreground) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 8%, transparent) 1px, transparent 1px);
+  background-size: var(--fx-size, 32px) var(--fx-size, 32px);
+}
+
+/* Frosted glass panel (over images or colorful backgrounds). */
+@utility fx-glass {
+  background-color: color-mix(in oklab, var(--surface) 60%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent);
+}
+
+/* ---- Borders ---- */
+
+/* Gradient border that rotates around the box. */
+@utility fx-border-spin {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    conic-gradient(
+        from var(--fx-angle),
+        var(--fx-from, var(--primary)),
+        var(--fx-via, var(--highlight)),
+        var(--fx-to, var(--accent)),
+        var(--fx-from, var(--primary))
+      )
+      border-box;
+  animation: fx-angle 4s linear infinite;
+}
+
+/* A short beam of light travelling around a normal border. */
+@utility fx-border-beam {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    conic-gradient(from var(--fx-angle), transparent 0 70%, var(--fx-color, var(--primary)) 88%, transparent 100%) border-box,
+    linear-gradient(var(--border), var(--border)) border-box;
+  animation: fx-angle 3s linear infinite;
+}
+
+/* Static neon-style glowing border. */
+@utility fx-glow-border {
+  border: 1px solid var(--fx-color, var(--primary));
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--fx-color, var(--primary)) 25%, transparent),
+    0 0 18px color-mix(in oklab, var(--fx-color, var(--primary)) 35%, transparent);
+}
+
+/* ---- Hover motions ---- */
+
+/* Slight tilt and grow on hover (playful cards). */
+@utility fx-tilt-hover {
+  transition: transform 250ms var(--ease-standard);
+  &:hover { transform: rotate(-1.5deg) scale(1.02); }
+}
+
+/* Zooms the image/video inside on hover. Put it on the image's wrapper. */
+@utility fx-zoom-hover {
+  overflow: hidden;
+  & :where(img, video, picture, svg) {
+    transition: transform 500ms var(--ease-standard);
+  }
+  &:hover :where(img, video, picture, svg) {
+    transform: scale(1.06);
+  }
+}
+
+/* Bold offset shadow appears on hover (badges, playful buttons). */
+@utility fx-pop-hover {
+  transition: transform 150ms var(--ease-standard), box-shadow 150ms var(--ease-standard);
+  &:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 4px 4px 0 0 var(--fx-color, var(--foreground));
+  }
+}
+
+/* ---- Looping attention motions (one per element) ---- */
+@utility fx-wiggle { animation: fx-wiggle 2.5s ease-in-out infinite; transform-origin: 50% 80%; }
+@utility fx-bounce { animation: fx-bounce 1.4s infinite; }
+@utility fx-heartbeat { animation: fx-heartbeat 1.6s ease-in-out infinite; }
+@utility fx-breathe { animation: fx-breathe 4s ease-in-out infinite; }
+@utility fx-spin-slow { animation: fx-spin 8s linear infinite; }
+
+/* ---- More entrances (play once; combine with fx-delay-*) ---- */
+@utility fx-slide-in-left {
+  animation: fx-slide-left 500ms var(--ease-standard) both;
+  animation-delay: var(--fx-delay, 0ms);
+}
+@utility fx-slide-in-right {
+  animation: fx-slide-right 500ms var(--ease-standard) both;
+  animation-delay: var(--fx-delay, 0ms);
+}
+@utility fx-slide-down {
+  animation: fx-slide-down 400ms var(--ease-standard) both;
+  animation-delay: var(--fx-delay, 0ms);
+}
+@utility fx-zoom-in {
+  animation: fx-zoom-in 450ms var(--ease-standard) both;
+  animation-delay: var(--fx-delay, 0ms);
+}
+@utility fx-blur-in {
+  animation: fx-blur-in 600ms var(--ease-standard) both;
+  animation-delay: var(--fx-delay, 0ms);
+}
+@utility fx-flip-in {
+  transform-origin: 50% 0;
+  animation: fx-flip-in 600ms var(--ease-standard) both;
+  animation-delay: var(--fx-delay, 0ms);
+}
+@utility fx-pop-in {
+  animation: fx-pop-in 500ms var(--ease-standard) both;
+  animation-delay: var(--fx-delay, 0ms);
+}
+@utility fx-reveal {
+  animation: fx-reveal 700ms var(--ease-standard) both;
+  animation-delay: var(--fx-delay, 0ms);
+}
+
+/* ---- Scroll-driven (play as the element scrolls into view; Chrome, Edge, Safari 26+.
+        Browsers without support just show the element normally) ---- */
+@utility fx-scroll-reveal {
+  @supports (animation-timeline: view()) {
+    animation: fx-fade-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+}
+@utility fx-scroll-scale {
+  @supports (animation-timeline: view()) {
+    animation: fx-scroll-scale linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 35%;
+  }
+}
+/* Reading-progress bar pinned to the top of the page: <div class="fx-scroll-progress" /> */
+@utility fx-scroll-progress {
+  display: none;
+  @supports (animation-timeline: scroll()) {
+    display: block;
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    height: 3px;
+    transform-origin: 0 50%;
+    background-image: linear-gradient(90deg, var(--fx-from, var(--primary)), var(--fx-via, var(--info)), var(--fx-to, var(--highlight)));
+    animation: fx-progress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* ---- More text effects ---- */
+
+/* Typewriter: text types itself out with a blinking caret. Best with font-mono.
+   Set the character count: fx-chars-24 (default 20). */
+@utility fx-typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  width: calc(var(--fx-chars, 20) * 1ch + 0.1em);
+  border-right: 0.08em solid currentColor;
+  animation:
+    fx-typing calc(var(--fx-chars, 20) * 70ms) steps(var(--fx-chars, 20)) both,
+    fx-caret 0.8s step-end infinite;
+  animation-delay: var(--fx-delay, 0ms), 0ms;
+}
+@utility fx-chars-* {
+  --fx-chars: --value(integer);
+}
+
+/* Neon sign: glowing text with an occasional flicker. */
+@utility fx-text-neon {
+  color: color-mix(in oklab, var(--fx-color, var(--highlight)) 30%, white);
+  text-shadow:
+    0 0 4px color-mix(in oklab, var(--fx-color, var(--highlight)) 80%, transparent),
+    0 0 12px var(--fx-color, var(--highlight)),
+    0 0 28px var(--fx-color, var(--highlight));
+  animation: fx-neon 4s linear infinite;
+}
+
+/* Outline-only text (big display words). */
+@utility fx-text-stroke {
+  color: transparent;
+  -webkit-text-stroke: 0.04em var(--fx-color, var(--foreground));
+}
+
+/* Stacked 3D shadow (playful headings). */
+@utility fx-text-3d {
+  text-shadow:
+    1px 1px 0 color-mix(in oklab, var(--fx-color, var(--deep)) 70%, transparent),
+    2px 2px 0 color-mix(in oklab, var(--fx-color, var(--deep)) 60%, transparent),
+    3px 3px 0 color-mix(in oklab, var(--fx-color, var(--deep)) 50%, transparent),
+    4px 4px 0 color-mix(in oklab, var(--fx-color, var(--deep)) 40%, transparent),
+    6px 6px 10px rgb(0 0 0 / 0.2);
+}
+
+/* Readable text on top of photos. */
+@utility fx-text-on-image {
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 14px rgb(0 0 0 / 0.35);
+}
+
+/* Text fills with color from left to right on hover (nav, CTA links). */
+@utility fx-text-fill-hover {
+  background-image: linear-gradient(to right, var(--fx-color, var(--primary)) 50%, var(--foreground) 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-position 400ms var(--ease-standard);
+  &:hover,
+  &:focus-visible {
+    background-position: 0 0;
+  }
+}
+
+/* Gradient underline (uses the gradient preset colors). */
+@utility fx-underline-gradient {
+  text-decoration: none;
+  background-image: linear-gradient(90deg, var(--fx-from, var(--primary)), var(--fx-via, var(--info)), var(--fx-to, var(--highlight)));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 0.12em;
+  padding-bottom: 0.08em;
+}
+
+/* Wavy underline (playful emphasis). */
+@utility fx-squiggle {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--fx-color, var(--highlight));
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+}
+
+/* Per-letter effects. Use the <SplitText> component instead of writing these by hand. */
+@utility fx-letter-rise {
+  display: inline-block;
+  animation: fx-letter-up 500ms var(--ease-standard) both;
+  animation-delay: calc(var(--fx-i, 0) * var(--fx-stagger, 35ms) + var(--fx-delay, 0ms));
+}
+@utility fx-letter-fade {
+  display: inline-block;
+  animation: fx-fade-in 500ms var(--ease-standard) both;
+  animation-delay: calc(var(--fx-i, 0) * var(--fx-stagger, 35ms) + var(--fx-delay, 0ms));
+}
+@utility fx-letter-blur {
+  display: inline-block;
+  animation: fx-blur-in 600ms var(--ease-standard) both;
+  animation-delay: calc(var(--fx-i, 0) * var(--fx-stagger, 35ms) + var(--fx-delay, 0ms));
+}
+@utility fx-letter-wave {
+  display: inline-block;
+  animation: fx-letter-wave 1.6s ease-in-out infinite;
+  animation-delay: calc(var(--fx-i, 0) * var(--fx-stagger, 35ms));
+}
