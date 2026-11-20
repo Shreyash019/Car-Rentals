@@ -10,7 +10,8 @@ vars:
   THEME: '{{.THEME | default "light"}}'
 
 env:
-  NEXT_PUBLIC_THEME: light
+  NEXT_PUBLIC_THEME: '{{.THEME}}'
+  THEME: '{{.THEME}}'
 
 tasks:
   default:
@@ -24,7 +25,7 @@ tasks:
     cmds: [pnpm install]
 
   dev:
-    desc: Run all three app in parallet (Ctrl+C stops all)
+    desc: Run all three apps in parallel (Ctrl+C stops all)
     deps: [dev-webadmin, dev-webproviders, dev-webcustomers]
   
   dev-webadmin:
@@ -46,11 +47,11 @@ tasks:
     cmds: [pnpm dev]
 
   build:
-    desc: Build Everything
+    desc: Build all three apps
     deps: [build-webadmin, build-webproviders, build-webcustomers]
 
   build-webadmin:
-    desc: Build webadmin
+    desc: Build web-admin
     dir: '{{.WEBADMIN}}'
     prefix: admin
     cmds: [pnpm build]
@@ -133,3 +134,33 @@ tasks:
         platforms: [darwin, linux]
       - cmd: powershell -NoProfile -Command "Remove-Item -Recurse -Force -ErrorAction SilentlyContinue {{.WEBADMIN}}/.next, {{.WEBPROVIDERS}}/.next, {{.WEBCUSTOMERS}}/.next"
         platforms: [windows]
+
+  docker:up:
+    desc: "Start all apps in Docker with hot reload (THEME=dark optional)"
+    cmds: [docker compose up --build]
+
+  docker:down:
+    desc: Stop Docker containers (keeps node_modules volumes)
+    cmds: [docker compose down]
+
+  docker:reset:
+    desc: Stop and delete ALL Docker volumes (fresh install next time)
+    cmds: [docker compose down -v]
+
+  docker:install:
+    desc: Re-run pnpm install inside Docker (after package.json changes)
+    cmds: [docker compose run --rm install]
+
+  docker:add:
+    desc: "Add a package inside Docker: task docker:add APP=web-admin PKG=zod [DEV=1]"
+    requires:
+      vars: [APP, PKG]
+    cmds:
+      - docker compose run --rm install pnpm --filter {{.APP}} add {{if .DEV}}-D {{end}}{{.PKG}}
+
+  docker:sh:
+    desc: "Open a shell in a running app container: task docker:sh APP=web-admin"
+    interactive: true
+    requires:
+      vars: [APP]
+    cmds: ['docker compose exec {{.APP}} bash']

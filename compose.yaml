@@ -1,0 +1,66 @@
+name: car-rentals
+
+x-env: &env
+  NEXT_PUBLIC_THEME: ${THEME:-light}
+  NEXT_TELEMETRY_DISABLED: "1"
+
+x-app: &app
+  image: car-rentals-dev
+  working_dir: /app
+  environment: *env
+  volumes:
+    - ./:/app
+    - node_modules:/app/node_modules
+    - admin_modules:/app/applications/web-admin/node_modules
+    - customers_modules:/app/applications/web-customers/node_modules
+    - providers_modules:/app/applications/web-providers/node_modules
+    - ui_modules:/app/packages/ui-package/node_modules
+    - admin_next:/app/applications/web-admin/.next
+    - customers_next:/app/applications/web-customers/.next
+    - providers_next:/app/applications/web-providers/.next
+
+services:
+  install:
+    <<: *app
+    build:
+      context: .
+      dockerfile: docker/dev.Dockerfile
+    command: pnpm install --frozen-lockfile --config.confirmModulesPurge=false
+
+  web-admin:
+    <<: *app
+    command: pnpm --filter web-admin dev
+    ports: ["3005:3005"]
+    depends_on:
+      install: { condition: service_completed_successfully }
+
+  web-providers:
+    <<: *app
+    command: pnpm --filter web-providers dev
+    ports: ["3011:3011"]
+    depends_on:
+      install: { condition: service_completed_successfully }
+
+  web-customers:
+    <<: *app
+    command: pnpm --filter web-customers dev
+    ports: ["3001:3001"]
+    environment:
+      <<: *env
+      # Inside Docker, other apps are reached by service name, not localhost
+      ADMIN_APP_URL: http://web-admin:3005
+      PROVIDER_APP_URL: http://web-providers:3011
+    depends_on:
+      install: { condition: service_completed_successfully }
+      web-admin: { condition: service_started }
+      web-providers: { condition: service_started }
+
+volumes:
+  node_modules:
+  admin_modules:
+  customers_modules:
+  providers_modules:
+  ui_modules:
+  admin_next:
+  customers_next:
+  providers_next:

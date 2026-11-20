@@ -13,6 +13,7 @@ secrets/
 credentials*.json
 service-account*.json
 .vscode
+.pnpm-store/
 
 # ============================================================
 # Dependencies & build output (any app/package/service)
