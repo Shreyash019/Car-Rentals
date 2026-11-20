@@ -3,7 +3,7 @@ import Accounts from "./accounts";
 
 export default function AccountsPage(){
     return (
-        <div>
+        <div className="p-12">
             <Suspense fallback={<div>m....</div>}>
                 <Accounts />
             </Suspense>
