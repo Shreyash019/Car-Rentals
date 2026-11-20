@@ -36,21 +36,22 @@ tasks:
 
   dev:
     desc: Run all three app in parallet (Ctrl+C stops all)
-    deps: [dev-webadmin, dev-webproviders, dev-webcusotmers]
+    deps: [dev-webadmin, dev-webproviders, dev-webcustomers]
   
   dev-webadmin:
-    desc: Run web-admin on :3011
+    desc: Run web-admin on :3005
     dir: '{{.WEBADMIN}}'
     cmds: [pnpm dev]
 
   dev-webproviders:
-    desc: Run web-providers on :3005
+    desc: Run web-providers on :3011
     dir: '{{.WEBPROVIDERS}}'
     cmds: [pnpm dev]
 
   dev-webcustomers:
-    desc: Run web-customers on :3003
+    desc: Run web-customers on :3001
     dir: '{{.WEBCUSTOMERS}}'
+    cmds: [pnpm dev]
 
   build:
     desc: Build Everything
