@@ -1,10 +1,16 @@
 version: '3'
 
+output: prefixed
+
 vars:
   WEBADMIN: applications/web-admin
   WEBCUSTOMERS: applications/web-customers
   WEBPROVIDERS: applications/web-providers
   UI: packages/ui-package
+  THEME: '{{.THEME | default "light"}}'
+
+env:
+  NEXT_PUBLIC_THEME: light
 
 tasks:
   default:
@@ -105,15 +111,13 @@ tasks:
     prefix: customers
     cmds: [pnpm lint]
 
-  typecheck-ui:
-    desc: Type-check the shared UI package
-    dir: '{{.UI}}'
-    prefix: ui
-    cmds: [pnpm typecheck]
+  typecheck:
+    desc: Type-check all apps and packages
+    cmds: [pnpm -r exec tsc --noEmit]
 
   check:
-    desc: Lint all apps and type-check the UI package
-    deps: [lint, typecheck-ui]
+    desc: Lint and type-check everything
+    deps: [lint, typecheck]
 
   add:
     desc: "Add a package to one app: task add APP=web-customers PKG=zod [DEV=1]"
@@ -127,5 +131,5 @@ tasks:
     cmds:
       - cmd: rm -rf {{.WEBADMIN}}/.next {{.WEBPROVIDERS}}/.next {{.WEBCUSTOMERS}}/.next
         platforms: [darwin, linux]
-      - cmd: powershell -NoProfile -Command "Remove-Item -Recurse -Force -ErrorAction SilentlyContinue {{.WEBADMIN}}/.next {{.WEBPROVIDERS}}/.next {{.WEBCUSTOMERS}}/.next"
+      - cmd: powershell -NoProfile -Command "Remove-Item -Recurse -Force -ErrorAction SilentlyContinue {{.WEBADMIN}}/.next, {{.WEBPROVIDERS}}/.next, {{.WEBCUSTOMERS}}/.next"
         platforms: [windows]
