@@ -1,8 +1,9 @@
 version: '3'
 
 vars:
-  MAINAPP: applications/main-app
-  ADMIN: applications/admin
+  WEBADMIN: applications/web-admin
+  WEBCUSTOMERS: applications/web-customers
+  WEBPROVIDERS: applications/web-providers
 
 tasks:
   default:
@@ -14,65 +15,85 @@ tasks:
   install: 
     desc: Install dependencies for all projects
     cmds:
-      - task: install-mainapp
-      - task: install-admin
+      - task: install-webadmin
+      - task: install-webcustomers
+      - task: install-webproviders
 
-  install-mainapp:
+  install-webadmin:
     internal: true
-    dir: '{{.MAINAPP}}'
+    dir: '{{.WEBADMIN}}'
     cmds: [pnpm install]
 
-  install-admin:
+  install-webproviders:
     internal: true
-    dir: '{{.ADMIN}}'
+    dir: '{{.WEBPROVIDERS}}'
+    cmds: [pnpm install]
+
+  install-webcustomers:
+    internal: true
+    dir: '{{.WEBCUSTOMERS}}'
     cmds: [pnpm install]
 
   dev:
     desc: Run all three app in parallet (Ctrl+C stops all)
-    deps: [dev-mainapp, dev-admin]
+    deps: [dev-webadmin, dev-webproviders, dev-webcusotmers]
   
-  dev-mainapp:
-    desc: Run main-app on :3005
-    dir: '{{.MAINAPP}}'
+  dev-webadmin:
+    desc: Run web-admin on :3011
+    dir: '{{.WEBADMIN}}'
     cmds: [pnpm dev]
 
-  dev-admin:
-    desc: Run main-app on :3011
-    dir: '{{.ADMIN}}'
+  dev-webproviders:
+    desc: Run web-providers on :3005
+    dir: '{{.WEBPROVIDERS}}'
     cmds: [pnpm dev]
+
+  dev-webcustomers:
+    desc: Run web-customers on :3003
+    dir: '{{.WEBCUSTOMERS}}'
 
   build:
     desc: Build Everything
-    deps: [build-mainapp, build-admin]
+    deps: [build-webadmin, build-webproviders, build-webcustomers]
 
-  build-mainapp:
-    desc: Build main-app
-    dir: '{{.MAINAPP}}'
+  build-webadmin:
+    desc: Build webadmin
+    dir: '{{.WEBADMIN}}'
     cmds: [pnpm build]
 
-  build-admin:
-    desc: Build admin
-    dir: '{{.ADMIN}}'
+  build-webproviders:
+    desc: Build webproviders
+    dir: '{{.WEBPROVIDERS}}'
+    cmds: [pnpm build]
+
+  build-webcustomers:
+    desc: Build webcustomers
+    dir: '{{.WEBCUSTOMERS}}'
     cmds: [pnpm build]
   
   lint:
-    desc: Lint both web apps
-    deps: [lint-mainapp, lint-admin]
+    desc: Lint all web apps
+    deps: [lint-webadmin, lint-webproviders, lint-webcustomers]
 
-  lint-mainapp:
-    desc: Lint mainapp
-    dir: '{{.MAINAPP}}'
+  lint-webadmin:
+    desc: Lint webadmin
+    dir: '{{.WEBADMIN}}'
     cmds: [pnpm lint]
 
-  lint-admin:
+  lint-webproviders:
     desc: Lint admin
-    dir: '{{.ADMIN}}'
+    dir: '{{.WEBPROVIDERS}}'
+    cmds: [pnpm lint]
+
+  lint-webcustomers:
+    desc: Lint admin
+    dir: '{{.WEBCUSTOMERS}}'
     cmds: [pnpm lint]
 
   clean:
     desc: Remove build outputs
     cmds:
-      - cmd: rm -rf {{.MAINAPP}}/.next {{.ADMIN}}/.next
+      - cmd: rm -rf {{.WEBADMIN}}/.next {{.WEBPROVIDERS}}/.next {{.WEBCUSTOMERS}}/.next
         platforms: [darwin, linux]
-      - cmd: powershell -NoProfile -Command "Remove-Item -Recurse -Force -ErrorAction SilentlyContinue {{.MAINAPP}}/.next, {{.ADMIN}}/.next"
+      - cmd: powershell -NoProfile -Command "Remove-Item -Recurse -Force -ErrorAction SilentlyContinue {{.WEBADMIN}}/.next {{.WEBPROVIDERS}}/.next {{.WEBCUSTOMERS}}/.next"
         platforms: [windows]
