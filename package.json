@@ -1,0 +1,5 @@
+{
+  "name": "car-rentals",
+  "private": true,
+  "packageManager": "pnpm@10.29.3"
+}

@@ -1,0 +1,17 @@
+packages:
+  - applications/*
+  - packages/*
+
+catalog:
+  next: 16.4.6
+  react: 19.3.0
+  react-dom: 19.3.0
+  tailwindcss: 4.3.3
+  "@tailwindcss/turbopack": 4.3.3
+  typescript: ^5
+  "@types/react": ^19
+  "@types/react-dom": ^19
+
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver

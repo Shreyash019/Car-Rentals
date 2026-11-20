@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@car-rentals/ui/styles.css";
 
 :root {
   --background: #ffffff;

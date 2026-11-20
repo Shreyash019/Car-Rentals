@@ -1,0 +1,10 @@
+/* Scan this package's components for Tailwind classes (path is relative to this file) */
+@source "./";
+
+@theme {
+  --color-brand-50:  #eff6ff;
+  --color-brand-500: #2563eb;
+  --color-brand-600: #1d4ed8;
+  --color-brand-700: #1e40af;
+  --radius-card: 0.75rem;
+}

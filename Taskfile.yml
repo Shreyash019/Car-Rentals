@@ -4,6 +4,7 @@ vars:
   WEBADMIN: applications/web-admin
   WEBCUSTOMERS: applications/web-customers
   WEBPROVIDERS: applications/web-providers
+  UI: packages/ui-package
 
 tasks:
   default:
@@ -12,26 +13,8 @@ tasks:
       - task --list
     silent: true
 
-  install: 
-    desc: Install dependencies for all projects
-    cmds:
-      - task: install-webadmin
-      - task: install-webcustomers
-      - task: install-webproviders
-
-  install-webadmin:
-    internal: true
-    dir: '{{.WEBADMIN}}'
-    cmds: [pnpm install]
-
-  install-webproviders:
-    internal: true
-    dir: '{{.WEBPROVIDERS}}'
-    cmds: [pnpm install]
-
-  install-webcustomers:
-    internal: true
-    dir: '{{.WEBCUSTOMERS}}'
+  install:
+    desc: Install dependencies for the whole workspace
     cmds: [pnpm install]
 
   dev:
@@ -41,16 +24,19 @@ tasks:
   dev-webadmin:
     desc: Run web-admin on :3005
     dir: '{{.WEBADMIN}}'
+    prefix: admin
     cmds: [pnpm dev]
 
   dev-webproviders:
     desc: Run web-providers on :3011
     dir: '{{.WEBPROVIDERS}}'
+    prefix: providers
     cmds: [pnpm dev]
 
   dev-webcustomers:
     desc: Run web-customers on :3001
     dir: '{{.WEBCUSTOMERS}}'
+    prefix: customers
     cmds: [pnpm dev]
 
   build:
@@ -60,36 +46,81 @@ tasks:
   build-webadmin:
     desc: Build webadmin
     dir: '{{.WEBADMIN}}'
+    prefix: admin
     cmds: [pnpm build]
 
   build-webproviders:
     desc: Build webproviders
     dir: '{{.WEBPROVIDERS}}'
+    prefix: providers
     cmds: [pnpm build]
 
   build-webcustomers:
     desc: Build webcustomers
     dir: '{{.WEBCUSTOMERS}}'
+    prefix: customers
     cmds: [pnpm build]
+
+  start:
+    desc: Run the production builds of all three apps (run `task build` first)
+    deps: [start-webadmin, start-webproviders, start-webcustomers]
+
+  start-webadmin:
+    internal: true
+    dir: '{{.WEBADMIN}}'
+    prefix: admin
+    cmds: [pnpm start -p 3005]
+
+  start-webproviders:
+    internal: true
+    dir: '{{.WEBPROVIDERS}}'
+    prefix: providers
+    cmds: [pnpm start -p 3011]
+
+  start-webcustomers:
+    internal: true
+    dir: '{{.WEBCUSTOMERS}}'
+    prefix: customers
+    cmds: [pnpm start -p 3001]
   
   lint:
-    desc: Lint all web apps
+    desc: Lint all three apps
     deps: [lint-webadmin, lint-webproviders, lint-webcustomers]
 
   lint-webadmin:
-    desc: Lint webadmin
+    desc: Lint web-admin
     dir: '{{.WEBADMIN}}'
+    prefix: admin
     cmds: [pnpm lint]
 
   lint-webproviders:
-    desc: Lint admin
+    desc: Lint web-providers
     dir: '{{.WEBPROVIDERS}}'
+    prefix: providers
     cmds: [pnpm lint]
 
   lint-webcustomers:
-    desc: Lint admin
+    desc: Lint web-customers
     dir: '{{.WEBCUSTOMERS}}'
+    prefix: customers
     cmds: [pnpm lint]
+
+  typecheck-ui:
+    desc: Type-check the shared UI package
+    dir: '{{.UI}}'
+    prefix: ui
+    cmds: [pnpm typecheck]
+
+  check:
+    desc: Lint all apps and type-check the UI package
+    deps: [lint, typecheck-ui]
+
+  add:
+    desc: "Add a package to one app: task add APP=web-customers PKG=zod [DEV=1]"
+    requires:
+      vars: [APP, PKG]
+    cmds:
+      - pnpm --filter {{.APP}} add {{if .DEV}}-D {{end}}{{.PKG}}
 
   clean:
     desc: Remove build outputs
