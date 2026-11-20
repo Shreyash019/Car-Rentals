@@ -1,45 +1,447 @@
-/* Scan this package's components for Tailwind classes (path is relative to this file) */
 @source "./";
 
-/* Tailwind `dark:` classes follow data-theme on <html>, not the OS setting */
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-@theme {
-  /* Brand */
-  --color-brand-50: #eff6ff;
-  --color-brand-500: #2563eb;
-  --color-brand-600: #1d4ed8;
-  --color-brand-700: #1e40af;
+/* --------------------------------------------------------------------------
+   1. PALETTE  (not exposed as classes on purpose)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Brand (blue) */
+  --brand-50: #eff6ff;
+  --brand-100: #dbeafe;
+  --brand-200: #bfdbfe;
+  --brand-300: #93c5fd;
+  --brand-400: #60a5fa;
+  --brand-500: #2563eb;
+  --brand-600: #1d4ed8;
+  --brand-700: #1e40af;
+  --brand-800: #1e3a8a;
+  --brand-950: #172554;
 
-  /* Shape */
-  --radius-card: 0.75rem;
+  /* Accent (gold) */
+  --gold-50: #fffbeb;
+  --gold-300: #fcd34d;
+  --gold-400: #fbbf24;
+  --gold-500: #f59e0b;
+  --gold-800: #92400e;
+  --gold-950: #451a03;
 
-  /* Skeleton */
-  --color-skeleton: rgb(0 0 0 / 0.08);
+  /* Neutrals */
+  --gray-0: #ffffff;
+  --gray-50: #fafafa;
+  --gray-100: #f4f4f5;
+  --gray-200: #e4e4e7;
+  --gray-300: #d4d4d8;
+  --gray-400: #a1a1aa;
+  --gray-500: #71717a;
+  --gray-600: #52525b;
+  --gray-700: #3f3f46;
+  --gray-800: #27272a;
+  --gray-900: #18181b;
+  --gray-950: #0a0a0a;
 
-  /* Table */
-  --color-table-header: rgb(0 0 0 / 0.03);
-  --color-table-border: rgb(0 0 0 / 0.08);
-  --color-table-hover: rgb(0 0 0 / 0.04);
-  --color-table-stripe: rgb(0 0 0 / 0.02);
+  /* Status */
+  --green-50: #f0fdf4;
+  --green-300: #86efac;
+  --green-700: #15803d;
+  --green-800: #166534;
+  --green-950: #052e16;
+  --red-50: #fef2f2;
+  --red-300: #fca5a5;
+  --red-600: #dc2626;
+  --red-700: #b91c1c;
+  --red-950: #450a0a;
 }
 
-/* Light (default) */
+/* --------------------------------------------------------------------------
+   2. SEMANTIC TOKENS — light (default)
+   Every background has a matching *-foreground that passes WCAG AA (4.5:1).
+   -------------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
   color-scheme: light;
+
+  --background: var(--gray-0);
+  --foreground: var(--gray-900);
+
+  --surface: var(--gray-0);              /* cards, panels, popovers */
+  --surface-foreground: var(--gray-900);
+
+  --muted: var(--gray-100);              /* subtle sections, disabled */
+  --muted-foreground: var(--gray-600);   /* secondary text */
+
+  --border: var(--gray-200);
+  --input: var(--gray-300);
+  --ring: var(--brand-500);              /* focus outline */
+  --link: var(--brand-600);
+
+  --primary: var(--brand-600);
+  --primary-hover: var(--brand-700);
+  --primary-foreground: var(--gray-0);
+  --primary-subtle: var(--brand-50);
+  --primary-subtle-foreground: var(--brand-700);
+
+  --secondary: var(--gray-100);
+  --secondary-hover: var(--gray-200);
+  --secondary-foreground: var(--gray-900);
+
+  --accent: var(--gold-400);
+  --accent-hover: var(--gold-500);
+  --accent-foreground: var(--gold-950);
+
+  --success: var(--green-700);
+  --success-foreground: var(--gray-0);
+  --success-subtle: var(--green-50);
+  --success-subtle-foreground: var(--green-800);
+
+  --warning: var(--gold-500);
+  --warning-foreground: var(--gold-950);
+  --warning-subtle: var(--gold-50);
+  --warning-subtle-foreground: var(--gold-800);
+
+  --danger: var(--red-600);
+  --danger-hover: var(--red-700);
+  --danger-foreground: var(--gray-0);
+  --danger-subtle: var(--red-50);
+  --danger-subtle-foreground: var(--red-700);
 }
 
 /* Dark: only active when <html data-theme="dark"> */
 [data-theme="dark"] {
-  --background: #0a0a0a;
-  --foreground: #ededed;
   color-scheme: dark;
 
-  --color-skeleton: rgb(255 255 255 / 0.1);
-  --color-table-header: rgb(255 255 255 / 0.05);
-  --color-table-border: rgb(255 255 255 / 0.1);
-  --color-table-hover: rgb(255 255 255 / 0.06);
-  --color-table-stripe: rgb(255 255 255 / 0.03);
+  --background: var(--gray-950);
+  --foreground: var(--gray-100);
+
+  --surface: var(--gray-900);
+  --surface-foreground: var(--gray-100);
+
+  --muted: var(--gray-800);
+  --muted-foreground: var(--gray-400);
+
+  --border: var(--gray-800);
+  --input: var(--gray-700);
+  --ring: var(--brand-400);
+  --link: var(--brand-300);
+
+  --primary: var(--brand-500);
+  --primary-hover: var(--brand-600);
+  --primary-subtle: var(--brand-950);
+  --primary-subtle-foreground: var(--brand-300);
+
+  --secondary: var(--gray-800);
+  --secondary-hover: var(--gray-700);
+  --secondary-foreground: var(--gray-100);
+
+  --accent-hover: var(--gold-300);
+
+  --success-subtle: var(--green-950);
+  --success-subtle-foreground: var(--green-300);
+
+  --warning-subtle: var(--gold-950);
+  --warning-subtle-foreground: var(--gold-300);
+
+  --danger-subtle: var(--red-950);
+  --danger-subtle-foreground: var(--red-300);
 }
+
+/* --------------------------------------------------------------------------
+   3a. TAILWIND COLOR CLASSES  (inline = classes follow the dark override)
+   -------------------------------------------------------------------------- */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-link: var(--link);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-primary-subtle-foreground: var(--primary-subtle-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-subtle: var(--success-subtle);
+  --color-success-subtle-foreground: var(--success-subtle-foreground);
+
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-subtle: var(--warning-subtle);
+  --color-warning-subtle-foreground: var(--warning-subtle-foreground);
+
+  --color-danger: var(--danger);
+  --color-danger-hover: var(--danger-hover);
+  --color-danger-foreground: var(--danger-foreground);
+  --color-danger-subtle: var(--danger-subtle);
+  --color-danger-subtle-foreground: var(--danger-subtle-foreground);
+
+  /* Tints of the text color: correct in light AND dark with no override */
+  --color-skeleton: color-mix(in oklab, var(--foreground) 8%, transparent);
+  --color-table-header: color-mix(in oklab, var(--foreground) 3%, transparent);
+  --color-table-border: var(--border);
+  --color-table-hover: color-mix(in oklab, var(--foreground) 4%, transparent);
+  --color-table-stripe: color-mix(in oklab, var(--foreground) 2%, transparent);
+
+  /* Fonts: next/font variables are set on <html> in each app's layout.tsx */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* --------------------------------------------------------------------------
+   3b. TYPOGRAPHY, SPACING, SHAPE  (fluid: scale with screen width, no breakpoints)
+   Use: text-display text-h1 … text-h4 text-body-lg text-body text-small text-caption
+   -------------------------------------------------------------------------- */
+@theme {
+  --text-display: clamp(2.5rem, 1.75rem + 3.75vw, 4.5rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.03em;
+  --text-display--font-weight: 800;
+
+  --text-h1: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h1--font-weight: 700;
+
+  --text-h2: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h2--font-weight: 700;
+
+  --text-h3: clamp(1.25rem, 1.1rem + 0.75vw, 1.75rem);
+  --text-h3--line-height: 1.3;
+  --text-h3--font-weight: 600;
+
+  --text-h4: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+  --text-h4--line-height: 1.4;
+  --text-h4--font-weight: 600;
+
+  --text-body-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --text-body-lg--line-height: 1.6;
+
+  --text-body: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem);
+  --text-body--line-height: 1.6;
+
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.25rem;
+
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+
+  /* Fluid spacing: p-gutter, gap-gutter, py-section … */
+  --spacing-gutter: clamp(1rem, 0.5rem + 2vw, 2rem);
+  --spacing-section: clamp(3rem, 2rem + 4vw, 6rem);
+
+  /* Shape: rounded-control, rounded-card */
+  --radius-control: 0.5rem;
+  --radius-card: 0.75rem;
+
+  /* Elevation: shadow-card, shadow-overlay */
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.05), 0 1px 3px rgb(0 0 0 / 0.08);
+  --shadow-overlay: 0 10px 30px -5px rgb(0 0 0 / 0.2), 0 4px 10px -4px rgb(0 0 0 / 0.1);
+
+  /* Motion: ease-standard + duration-200 etc. */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Breakpoints: Tailwind defaults (sm 40rem, md 48rem, lg 64rem, xl 80rem, 2xl 96rem)
+     plus xs for large phones */
+  --breakpoint-xs: 30rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. BASE  (plain HTML looks on-brand with zero classes)
+   -------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scrollbar-gutter: stable; /* no layout jump when a page gets a scrollbar */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: --theme(--font-sans);
+    font-size: --theme(--text-body);
+    line-height: --theme(--text-body--line-height);
+    overflow-wrap: break-word; /* long emails/URLs never push the page wider */
+  }
+
+  h1, h2, h3, h4 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+
+  h1 {
+    font-size: --theme(--text-h1);
+    line-height: --theme(--text-h1--line-height);
+    letter-spacing: --theme(--text-h1--letter-spacing);
+    font-weight: --theme(--text-h1--font-weight);
+  }
+  h2 {
+    font-size: --theme(--text-h2);
+    line-height: --theme(--text-h2--line-height);
+    letter-spacing: --theme(--text-h2--letter-spacing);
+    font-weight: --theme(--text-h2--font-weight);
+  }
+  h3 {
+    font-size: --theme(--text-h3);
+    line-height: --theme(--text-h3--line-height);
+    font-weight: --theme(--text-h3--font-weight);
+  }
+  h4 {
+    font-size: --theme(--text-h4);
+    line-height: --theme(--text-h4--line-height);
+    font-weight: --theme(--text-h4--font-weight);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--primary-subtle);
+    color: var(--primary-subtle-foreground);
+  }
+
+  /* Tailwind v4 resets buttons to cursor: default */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+
+  ::placeholder {
+    color: var(--muted-foreground);
+    opacity: 1;
+  }
+
+  hr {
+    border-color: var(--border);
+  }
+
+  /* Respect users who turn off animations in their OS */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. REUSABLE UTILITIES  (write once, use as a class name everywhere)
+   -------------------------------------------------------------------------- */
+
+/* Centered page width with fluid side padding. Use on every page wrapper. */
+@utility container {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: var(--spacing-gutter);
+}
+
+/* Vertical rhythm between page sections. */
+@utility section {
+  padding-block: var(--spacing-section);
+}
+
+/* Cards/tiles that reflow by themselves: 1 column on phones, more as space grows.
+   Change minimum tile width per use: class="auto-grid [--auto-grid-min:20rem]" */
+@utility auto-grid {
+  display: grid;
+  gap: var(--spacing-gutter);
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--auto-grid-min, 16rem), 100%), 1fr));
+}
+
+/* Stack children vertically with consistent spacing. */
+@utility stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-gutter);
+}
+
+/* Form controls: <input class="field">, <select class="field">, <textarea class="field"> */
+@utility field {
+  display: block;
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-control);
+  background-color: var(--surface);
+  color: var(--surface-foreground);
+  font-size: max(16px, 1rem); /* below 16px, iOS Safari zooms the page on focus */
+  line-height: 1.5;
+  transition: border-color 150ms var(--ease-standard), box-shadow 150ms var(--ease-standard);
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 30%, transparent);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--muted);
+    color: var(--muted-foreground);
+  }
+  &[aria-invalid="true"] {
+    border-color: var(--danger);
+  }
+}
+
+/* Form label and helper/error text */
+@utility label {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-size: var(--text-small);
+  font-weight: 500;
+}
+@utility hint {
+  margin-top: 0.375rem;
+  font-size: var(--text-caption);
+  color: var(--muted-foreground);
+}
+@utility error-text {
+  margin-top: 0.375rem;
+  font-size: var(--text-caption);
+  color: var(--danger);
+}
+
+/* Inline text link */
+@utility link {
+  color: var(--link);
+  text-underline-offset: 4px;
+  &:hover { text-decoration-line: underline; }
+}
+
+/* Loading placeholder block: <div class="skeleton h-4 w-32"></div> */
+@utility skeleton {
+  border-radius: var(--radius-control);
+  background-color: var(--color-skeleton);
+  animation: var(--animate-pulse);
+}
+
+/* Color pairs: background + its matching text color in one class. */
+@utility tone-primary { background-color: var(--primary); color: var(--primary-foreground); }
+@utility tone-secondary { background-color: var(--secondary); color: var(--secondary-foreground); }
+@utility tone-accent { background-color: var(--accent); color: var(--accent-foreground); }
+@utility tone-muted { background-color: var(--muted); color: var(--muted-foreground); }
+@utility tone-surface { background-color: var(--surface); color: var(--surface-foreground); }
+@utility tone-success { background-color: var(--success); color: var(--success-foreground); }
+@utility tone-warning { background-color: var(--warning); color: var(--warning-foreground); }
+@utility tone-danger { background-color: var(--danger); color: var(--danger-foreground); }
