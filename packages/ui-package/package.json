@@ -5,6 +5,7 @@
   "type": "module",
   "sideEffects": ["**/*.css"],
   "exports": {
+    ".": "./src/index.ts",
     "./styles.css": "./src/styles.css",
     "./cn": "./src/lib/cn.ts",
     "./*": "./src/components/*.tsx"

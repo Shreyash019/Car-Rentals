@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   experimental: {
+    optimizePackageImports: ["@car-rentals/ui"],
     serverActions: {
       allowedOrigins: (process.env.PUBLIC_ORIGINS ?? "localhost:3001").split(
         ",",

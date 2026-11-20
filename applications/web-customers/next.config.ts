@@ -29,6 +29,9 @@ const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  experimental: {
+    optimizePackageImports: ["@car-rentals/ui"],
+  },
   turbopack: {
     rules: {
       "*.css": {
