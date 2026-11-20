@@ -1,10 +1,45 @@
 /* Scan this package's components for Tailwind classes (path is relative to this file) */
 @source "./";
 
+/* Tailwind `dark:` classes follow data-theme on <html>, not the OS setting */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 @theme {
-  --color-brand-50:  #eff6ff;
+  /* Brand */
+  --color-brand-50: #eff6ff;
   --color-brand-500: #2563eb;
   --color-brand-600: #1d4ed8;
   --color-brand-700: #1e40af;
+
+  /* Shape */
   --radius-card: 0.75rem;
+
+  /* Skeleton */
+  --color-skeleton: rgb(0 0 0 / 0.08);
+
+  /* Table */
+  --color-table-header: rgb(0 0 0 / 0.03);
+  --color-table-border: rgb(0 0 0 / 0.08);
+  --color-table-hover: rgb(0 0 0 / 0.04);
+  --color-table-stripe: rgb(0 0 0 / 0.02);
+}
+
+/* Light (default) */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  color-scheme: light;
+}
+
+/* Dark: only active when <html data-theme="dark"> */
+[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  color-scheme: dark;
+
+  --color-skeleton: rgb(255 255 255 / 0.1);
+  --color-table-header: rgb(255 255 255 / 0.05);
+  --color-table-border: rgb(255 255 255 / 0.1);
+  --color-table-hover: rgb(255 255 255 / 0.06);
+  --color-table-stripe: rgb(255 255 255 / 0.03);
 }

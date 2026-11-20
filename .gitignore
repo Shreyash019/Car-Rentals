@@ -12,6 +12,7 @@
 secrets/
 credentials*.json
 service-account*.json
+.vscode
 
 # ============================================================
 # Dependencies & build output (any app/package/service)

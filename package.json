@@ -1,5 +1,8 @@
 {
   "name": "car-rentals",
   "private": true,
-  "packageManager": "pnpm@10.29.3"
+  "packageManager": "pnpm@10.29.3",
+  "devDependencies": {
+    "typescript": "catalog:"
+  }
 }

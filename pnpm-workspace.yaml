@@ -1,6 +1,7 @@
 packages:
   - applications/*
   - packages/*
+  - services/*
 
 catalog:
   next: 16.4.6
@@ -8,9 +9,10 @@ catalog:
   react-dom: 19.3.0
   tailwindcss: 4.3.3
   "@tailwindcss/turbopack": 4.3.3
-  typescript: ^5
+  typescript: ~6.0.3
   "@types/react": ^19
   "@types/react-dom": ^19
+  "@types/node": ^20
 
 ignoredBuiltDependencies:
   - sharp
