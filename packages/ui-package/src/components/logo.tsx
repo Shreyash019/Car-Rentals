@@ -18,7 +18,7 @@ export function Logo({ variant = "full", className, ...props }: LogoProps) {
       width={full ? 160 : 40}
       height={40}
       decoding="async"
-      className={cn("h-8 w-auto", full ? "rounded-control" : "rounded-full", className)}
+      className={cn("h-8 w-auto shrink-0 object-contain", full ? "rounded-control" : "rounded-full", className)}
       {...props}
     />
   );
