@@ -1,0 +1,52 @@
+# ============================================================
+# Secrets
+# ============================================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+secrets/
+credentials*.json
+service-account*.json
+
+# ============================================================
+# Dependencies & build output (any app/package/service)
+# ============================================================
+node_modules/
+.pnp
+.pnp.*
+.next/
+out/
+build/
+dist/
+coverage/
+.turbo/
+.vercel/
+.task/
+*.tsbuildinfo
+next-env.d.ts
+
+# ============================================================
+# Logs
+# ============================================================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ============================================================
+# OS / editor
+# ============================================================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+*~
