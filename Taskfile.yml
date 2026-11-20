@@ -46,6 +46,18 @@ tasks:
     prefix: customers
     cmds: [pnpm dev]
 
+  dev-uikit:
+    desc: Run the UI Kit reference app on :3020 (local only)
+    dir: applications/ui-kit
+    prefix: ui-kit
+    cmds: [pnpm dev]
+
+  lint-uikit:
+    desc: Lint the UI Kit app
+    dir: applications/ui-kit
+    prefix: ui-kit
+    cmds: [pnpm lint]
+
   build:
     desc: Build all three apps
     deps: [build-webadmin, build-webproviders, build-webcustomers]

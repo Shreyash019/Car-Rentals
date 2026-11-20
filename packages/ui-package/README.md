@@ -5,8 +5,8 @@ Package: `@car-rentals/ui` · used by `web-admin`, `web-customers` and `web-prov
 This package is the single home of the theme (colors, type, spacing, shapes) and the shared
 components. Every app imports it, so a change here shows up in all three apps.
 
-**See everything live:** run `task dev` and open **http://localhost:3005/admin/ui-kit**
-(source: `applications/web-admin/app/ui-kit/`). It renders every class and component below,
+**See everything live:** run `task dev-uikit` and open **http://localhost:3020**
+(source: `applications/ui-kit/`, local only). It renders every class and component below,
 has a light/dark toggle, and copies a class name when you click its label.
 
 Pages should only use the classes and components listed below. If you need something that
@@ -211,7 +211,7 @@ Normal Tailwind spacing (`p-4`, `gap-2`, `mt-6` …) is fine for small, fixed ga
 ### Effects (`fx-`)
 
 Ready-made animations and text effects. You can see each one live in the **Effects** section of
-`/admin/ui-kit`. They all stop automatically for users who turn on "reduce motion" in their OS.
+the UI Kit app. They all stop automatically for users who turn on "reduce motion" in their OS.
 
 **Buttons and surfaces**
 
