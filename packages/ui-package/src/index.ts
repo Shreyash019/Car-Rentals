@@ -75,3 +75,36 @@ export { formatPrice, type PriceFormatOptions } from "./lib/format";
 export { Breadcrumbs, type BreadcrumbsProps, type BreadcrumbItem } from "./components/breadcrumbs";
 export { Accordion, type AccordionProps, type AccordionItem } from "./components/accordion";
 export { FileUpload, type FileUploadProps } from "./components/file-upload";
+export { TriggerButton, type TriggerButtonProps } from "./components/trigger-button";
+export { Popover, type PopoverProps } from "./components/popover";
+export {
+  Dialog,
+  ConfirmDialog,
+  Drawer,
+  type DialogProps,
+  type ConfirmDialogProps,
+  type DrawerProps,
+} from "./components/dialog";
+export {
+  DropdownMenu,
+  MenuItem,
+  MenuSection,
+  MenuSeparator,
+  type DropdownMenuProps,
+  type MenuItemProps,
+} from "./components/dropdown-menu";
+export { Tooltip, type TooltipProps } from "./components/tooltip";
+export { Toaster, toast, type ToastOptions, type ToasterProps, type ToastTone } from "./components/toast";
+export { Combobox, type ComboboxProps, type ComboboxItem } from "./components/combobox";
+export { DateRangePicker, type DateRangePickerProps } from "./components/date-range-picker";
+export { UIProvider, type UIProviderProps } from "./components/ui-provider";
+// Date helpers so apps don't need their own @internationalized/date dependency
+export {
+  today,
+  getLocalTimeZone,
+  parseDate,
+  parseDateTime,
+  CalendarDate,
+  CalendarDateTime,
+} from "@internationalized/date";
+export type { DateValue, Key } from "react-aria-components";

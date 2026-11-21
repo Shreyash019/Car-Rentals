@@ -103,7 +103,8 @@ export function DataTable<T>({
 
   function handleRowClick(row: T, e: MouseEvent<HTMLTableRowElement>) {
     if (!onRowClick) return;
-    // A button/link/input inside the row was clicked: let it handle itself.
+    // Clicks inside a popup (menu, dialog) bubble here through React portals: not a row click.
+    if (!e.currentTarget.contains(e.target as Node)) return;
     if ((e.target as HTMLElement).closest(IGNORE_ROW_CLICK)) return;
     // User was selecting text, not clicking.
     if (window.getSelection()?.toString()) return;

@@ -1,1 +1,1 @@
-export const ACCOUNT_COLUMN_WIDTHS = ["30%", "35%", "15%", "20%"];
+export const ACCOUNT_COLUMN_WIDTHS = ["28%", "32%", "15%", "17%", "8%"];

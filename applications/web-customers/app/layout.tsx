@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { APP_THEME, BRAND, themeScript } from "@car-rentals/ui";
 import "./globals.css";
 import { Header, Footer } from "@/components";
+import { Providers } from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -58,9 +59,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeScript() }} />
       </head>
       <body className="min-h-full flex flex-col">
-        <Header />
-        {children}
-        <Footer />
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

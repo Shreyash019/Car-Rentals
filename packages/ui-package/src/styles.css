@@ -72,29 +72,33 @@
   /* Brand 2 (pink) — from GO Rentals. "derived" = not on the site, made for dark mode/tints */
   --pink-50: #fdf1f6;
   --pink-200: #f598ac;
-  --pink-600: #e21266;   /* goPink: buttons, links, theme-color */
-  --pink-700: #cb105c;   /* hover */
-  --pink-800: #b40e51;   /* pressed */
-  --pink-950: #3d0a1f;   /* derived */
-  --indigo-50: #efeef8;  /* derived */
+  --pink-600: #e21266; /* goPink: buttons, links, theme-color */
+  --pink-700: #cb105c; /* hover */
+  --pink-800: #b40e51; /* pressed */
+  --pink-950: #3d0a1f; /* derived */
+  --indigo-50: #efeef8; /* derived */
   --indigo-300: #a9a4e6; /* derived */
   --indigo-600: #332c81; /* goBlue */
   --indigo-700: #2b256e; /* hover */
   --indigo-800: #251f5c; /* pressed */
-  --sky-100: #d9edfa;    /* map background */
-  --sky-900: #0b2236;    /* derived */
+  --sky-100: #d9edfa; /* map background */
+  --sky-900: #0b2236; /* derived */
 
   /* Reference: Booking.com cars (its --bui_color_* tokens) */
-  --navy-200: #cee6ff;   /* brand_primary_foreground (dark) */
-  --navy-600: #003b95;   /* brand_primary_background */
+  --navy-200: #cee6ff; /* brand_primary_foreground (dark) */
+  --navy-600: #003b95; /* brand_primary_background */
   --navy-950: #041b43;
   /* (Booking's action blue and yellow were merged into brand blue and gold
      to avoid near-duplicate colors.) */
-  --orange-50: #fef3ec;  /* callout_background_alt */
+  --orange-50: #fef3ec; /* callout_background_alt */
   --orange-500: #f56700; /* callout_background */
   --orange-800: #923e01; /* callout_foreground */
   --orange-950: #411b01; /* callout_background_alt (dark) */
-  --ink-900: #242424;    /* on_accent / on_callout text */
+  --ink-900: #242424; /* on_accent / on_callout text */
+
+  /* Scrims (dark see-through layers behind dialogs) */
+  --scrim: rgb(0 0 0 / 0.45);
+  --scrim-strong: rgb(0 0 0 / 0.65);
 }
 
 /* --------------------------------------------------------------------------
@@ -107,16 +111,17 @@
   --background: var(--gray-0);
   --foreground: var(--gray-900);
 
-  --surface: var(--gray-0);              /* cards, panels, popovers */
+  --surface: var(--gray-0); /* cards, panels, popovers */
   --surface-foreground: var(--gray-900);
 
-  --muted: var(--gray-100);              /* subtle sections, disabled */
-  --muted-foreground: var(--gray-600);   /* secondary text */
+  --muted: var(--gray-100); /* subtle sections, disabled */
+  --muted-foreground: var(--gray-600); /* secondary text */
 
   --border: var(--gray-200);
   --input: var(--gray-500);
-  --ring: var(--brand-500);              /* focus outline */
+  --ring: var(--brand-500); /* focus outline */
   --link: var(--brand-600);
+  --overlay: var(--scrim);
 
   --primary: var(--brand-600);
   --primary-hover: var(--brand-700);
@@ -149,33 +154,33 @@
   --danger-subtle-foreground: var(--red-700);
 
   /* Extra roles (from GO Rentals + Booking.com references) */
-  --highlight: var(--pink-600);          /* promos, "Hot deal", app download */
+  --highlight: var(--pink-600); /* promos, "Hot deal", app download */
   --highlight-hover: var(--pink-700);
   --highlight-foreground: var(--gray-0);
   --highlight-subtle: var(--pink-50);
   --highlight-subtle-foreground: var(--pink-800);
 
-  --strong: var(--navy-600);             /* header bar, hero band */
+  --strong: var(--navy-600); /* header bar, hero band */
   --strong-foreground: var(--gray-0);
 
-  --deep: var(--indigo-600);             /* footer, secondary dark bands */
+  --deep: var(--indigo-600); /* footer, secondary dark bands */
   --deep-hover: var(--indigo-700);
   --deep-foreground: var(--gray-0);
 
-  --info: var(--brand-600);              /* info banners, "Free cancellation" (brand blue) */
+  --info: var(--brand-600); /* info banners, "Free cancellation" (brand blue) */
   --info-foreground: var(--gray-0);
   --info-subtle: var(--brand-50);
   --info-subtle-foreground: var(--brand-700);
 
-  --callout: var(--orange-500);          /* urgency: "Only 2 left", "Ends tonight" */
+  --callout: var(--orange-500); /* urgency: "Only 2 left", "Ends tonight" */
   --callout-foreground: var(--ink-900);
   --callout-subtle: var(--orange-50);
   --callout-subtle-foreground: var(--orange-800);
 
-  --sky: var(--sky-100);                 /* soft section background, maps, illustrations */
+  --sky: var(--sky-100); /* soft section background, maps, illustrations */
   --sky-foreground: var(--navy-600);
 
-  --rating: var(--gold-400);             /* stars, review scores (same gold as accent) */
+  --rating: var(--gold-400); /* stars, review scores (same gold as accent) */
   --rating-foreground: var(--ink-900);
 }
 
@@ -196,6 +201,7 @@
   --input: var(--gray-500);
   --ring: var(--brand-400);
   --link: var(--brand-300);
+  --overlay: var(--scrim-strong);
 
   --primary: var(--brand-500);
   --primary-hover: var(--brand-600);
@@ -244,6 +250,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-link: var(--link);
+  --color-overlay: var(--overlay);
 
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
@@ -315,7 +322,9 @@
      font-display = headings. To give headings their own brand font, load it with
      next/font as --font-brand-display and it is picked up here automatically. */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-brand-display, var(--font-geist-sans)), ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    var(--font-brand-display, var(--font-geist-sans)), ui-sans-serif, system-ui,
+    sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
@@ -369,7 +378,8 @@
 
   /* Elevation: shadow-card, shadow-overlay */
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.05), 0 1px 3px rgb(0 0 0 / 0.08);
-  --shadow-overlay: 0 10px 30px -5px rgb(0 0 0 / 0.2), 0 4px 10px -4px rgb(0 0 0 / 0.1);
+  --shadow-overlay:
+    0 10px 30px -5px rgb(0 0 0 / 0.2), 0 4px 10px -4px rgb(0 0 0 / 0.1);
 
   /* Motion: ease-standard + duration-200 etc. */
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
@@ -405,11 +415,16 @@
     border-color: var(--border);
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: --theme(--font-display);
     text-wrap: balance;
   }
-  p { text-wrap: pretty; }
+  p {
+    text-wrap: pretty;
+  }
 
   h1 {
     font-size: --theme(--text-h1);
@@ -496,7 +511,10 @@
 @utility auto-grid {
   display: grid;
   gap: var(--spacing-gutter);
-  grid-template-columns: repeat(auto-fill, minmax(min(var(--auto-grid-min, 16rem), 100%), 1fr));
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(min(var(--auto-grid-min, 16rem), 100%), 1fr)
+  );
 }
 
 /* Stack children vertically with consistent spacing. */
@@ -522,7 +540,10 @@
   border-radius: var(--radius-control);
   background-color: var(--field-bg, var(--surface));
   color: var(--surface-foreground);
-  font-size: var(--field-text, max(16px, 1rem)); /* below 16px, iOS Safari zooms the page on focus */
+  font-size: var(
+    --field-text,
+    max(16px, 1rem)
+  ); /* below 16px, iOS Safari zooms the page on focus */
   line-height: 1.5;
   transition:
     border-color 150ms var(--ease-standard),
@@ -532,21 +553,25 @@
   &::placeholder {
     color: var(--muted-foreground);
   }
-  &:focus {
+  &:focus,
+  &:focus-within {
     outline: none;
     border-color: var(--ring);
     background-color: var(--surface);
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 30%, transparent);
   }
-  &:disabled {
+  &:disabled,
+  &[data-disabled] {
     cursor: not-allowed;
     background-color: var(--muted);
     color: var(--muted-foreground);
   }
-  &[aria-invalid="true"] {
+  &[aria-invalid="true"],
+  &[data-invalid] {
     border-color: var(--danger);
   }
-  &[aria-invalid="true"]:focus {
+  &[aria-invalid="true"]:focus,
+  &[data-invalid]:focus-within {
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--danger) 30%, transparent);
   }
 }
@@ -600,12 +625,13 @@
   color: var(--danger-subtle-foreground);
 }
 
-
 /* Inline text link */
 @utility link {
   color: var(--link);
   text-underline-offset: 4px;
-  &:hover { text-decoration-line: underline; }
+  &:hover {
+    text-decoration-line: underline;
+  }
 }
 
 /* Loading placeholder block: <div class="skeleton h-4 w-32"></div> */
@@ -616,30 +642,157 @@
 }
 
 /* Color pairs: background + its matching text color in one class. */
-@utility tone-primary { background-color: var(--primary); color: var(--primary-foreground); }
-@utility tone-secondary { background-color: var(--secondary); color: var(--secondary-foreground); }
-@utility tone-accent { background-color: var(--accent); color: var(--accent-foreground); }
-@utility tone-muted { background-color: var(--muted); color: var(--muted-foreground); }
-@utility tone-surface { background-color: var(--surface); color: var(--surface-foreground); }
-@utility tone-success { background-color: var(--success); color: var(--success-foreground); }
-@utility tone-warning { background-color: var(--warning); color: var(--warning-foreground); }
-@utility tone-danger { background-color: var(--danger); color: var(--danger-foreground); }
-@utility tone-highlight { background-color: var(--highlight); color: var(--highlight-foreground); }
-@utility tone-strong { background-color: var(--strong); color: var(--strong-foreground); }
-@utility tone-deep { background-color: var(--deep); color: var(--deep-foreground); }
-@utility tone-info { background-color: var(--info); color: var(--info-foreground); }
-@utility tone-callout { background-color: var(--callout); color: var(--callout-foreground); }
-@utility tone-sky { background-color: var(--sky); color: var(--sky-foreground); }
-@utility tone-rating { background-color: var(--rating); color: var(--rating-foreground); }
+@utility tone-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+@utility tone-secondary {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+@utility tone-accent {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+@utility tone-muted {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+}
+@utility tone-surface {
+  background-color: var(--surface);
+  color: var(--surface-foreground);
+}
+@utility tone-success {
+  background-color: var(--success);
+  color: var(--success-foreground);
+}
+@utility tone-warning {
+  background-color: var(--warning);
+  color: var(--warning-foreground);
+}
+@utility tone-danger {
+  background-color: var(--danger);
+  color: var(--danger-foreground);
+}
+@utility tone-highlight {
+  background-color: var(--highlight);
+  color: var(--highlight-foreground);
+}
+@utility tone-strong {
+  background-color: var(--strong);
+  color: var(--strong-foreground);
+}
+@utility tone-deep {
+  background-color: var(--deep);
+  color: var(--deep-foreground);
+}
+@utility tone-info {
+  background-color: var(--info);
+  color: var(--info-foreground);
+}
+@utility tone-callout {
+  background-color: var(--callout);
+  color: var(--callout-foreground);
+}
+@utility tone-sky {
+  background-color: var(--sky);
+  color: var(--sky-foreground);
+}
+@utility tone-rating {
+  background-color: var(--rating);
+  color: var(--rating-foreground);
+}
 /* Soft pairs: tinted background + its readable text (badges, alerts, avatars). */
-@utility tone-primary-subtle { background-color: var(--primary-subtle); color: var(--primary-subtle-foreground); }
-@utility tone-success-subtle { background-color: var(--success-subtle); color: var(--success-subtle-foreground); }
-@utility tone-warning-subtle { background-color: var(--warning-subtle); color: var(--warning-subtle-foreground); }
-@utility tone-danger-subtle { background-color: var(--danger-subtle); color: var(--danger-subtle-foreground); }
-@utility tone-highlight-subtle { background-color: var(--highlight-subtle); color: var(--highlight-subtle-foreground); }
-@utility tone-info-subtle { background-color: var(--info-subtle); color: var(--info-subtle-foreground); }
-@utility tone-callout-subtle { background-color: var(--callout-subtle); color: var(--callout-subtle-foreground); }
+@utility tone-primary-subtle {
+  background-color: var(--primary-subtle);
+  color: var(--primary-subtle-foreground);
+}
+@utility tone-success-subtle {
+  background-color: var(--success-subtle);
+  color: var(--success-subtle-foreground);
+}
+@utility tone-warning-subtle {
+  background-color: var(--warning-subtle);
+  color: var(--warning-subtle-foreground);
+}
+@utility tone-danger-subtle {
+  background-color: var(--danger-subtle);
+  color: var(--danger-subtle-foreground);
+}
+@utility tone-highlight-subtle {
+  background-color: var(--highlight-subtle);
+  color: var(--highlight-subtle-foreground);
+}
+@utility tone-info-subtle {
+  background-color: var(--info-subtle);
+  color: var(--info-subtle-foreground);
+}
+@utility tone-callout-subtle {
+  background-color: var(--callout-subtle);
+  color: var(--callout-subtle-foreground);
+}
 
+/* --------------------------------------------------------------------------
+   5b. OVERLAYS  (popovers, menus, listboxes, dialogs, drawers, tooltips)
+   React Aria sets data-entering / data-exiting while an overlay opens and
+   closes, and waits for the exit animation before removing it.
+   -------------------------------------------------------------------------- */
+@keyframes overlay-fade { from { opacity: 0; } }
+@keyframes overlay-pop { from { opacity: 0; transform: scale(0.97); } }
+@keyframes overlay-from-right { from { transform: translateX(100%); } }
+@keyframes overlay-from-left { from { transform: translateX(-100%); } }
+@keyframes overlay-from-bottom { from { transform: translateY(100%); } }
+
+@utility overlay-fade {
+  &[data-entering] { animation: overlay-fade 150ms var(--ease-standard); }
+  &[data-exiting] { animation: overlay-fade 120ms var(--ease-standard) reverse forwards; }
+}
+@utility overlay-pop {
+  &[data-entering] { animation: overlay-pop 180ms var(--ease-standard); }
+  &[data-exiting] { animation: overlay-pop 120ms var(--ease-standard) reverse forwards; }
+}
+@utility overlay-slide-right {
+  &[data-entering] { animation: overlay-from-right 250ms var(--ease-standard); }
+  &[data-exiting] { animation: overlay-from-right 200ms var(--ease-standard) reverse forwards; }
+}
+@utility overlay-slide-left {
+  &[data-entering] { animation: overlay-from-left 250ms var(--ease-standard); }
+  &[data-exiting] { animation: overlay-from-left 200ms var(--ease-standard) reverse forwards; }
+}
+@utility overlay-slide-bottom {
+  &[data-entering] { animation: overlay-from-bottom 250ms var(--ease-standard); }
+  &[data-exiting] { animation: overlay-from-bottom 200ms var(--ease-standard) reverse forwards; }
+}
+
+/* Floating panel: popovers, menus, listboxes, calendars, dialogs. */
+@utility overlay-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background-color: var(--surface);
+  color: var(--surface-foreground);
+  box-shadow: var(--shadow-overlay);
+  outline: none;
+}
+
+/* One row in a menu or listbox (React Aria sets data-focused / data-disabled). */
+@utility overlay-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: calc(var(--radius-control) - 2px);
+  font-size: var(--text-small);
+  line-height: var(--text-small--line-height);
+  cursor: default;
+  outline: none;
+  &[data-focused] { background-color: var(--overlay-item-focus, var(--muted)); }
+  &[data-disabled] { opacity: 0.5; }
+}
+/* Destructive menu row ("Delete", "Reject"). Use with overlay-item. */
+@utility overlay-item-danger {
+  color: var(--danger-subtle-foreground);
+  --overlay-item-focus: var(--danger-subtle);
+}
 
 /* --------------------------------------------------------------------------
    6. EFFECTS  (animations & text effects, all prefixed fx-)
@@ -653,41 +806,102 @@
    Motion: everything stops for users with "reduce motion" on (see section 4).
    -------------------------------------------------------------------------- */
 
-@keyframes fx-skeleton { 50% { opacity: 0.5; } }
+@keyframes fx-skeleton {
+  50% {
+    opacity: 0.5;
+  }
+}
 
 @keyframes fx-glow {
-  0%, 100% {
-    box-shadow: 0 0 10px 0 color-mix(in oklab, var(--fx-color, var(--primary)) 35%, transparent);
+  0%,
+  100% {
+    box-shadow: 0 0 10px 0
+      color-mix(in oklab, var(--fx-color, var(--primary)) 35%, transparent);
   }
   50% {
     box-shadow:
-      0 0 0 3px color-mix(in oklab, var(--fx-color, var(--primary)) 20%, transparent),
-      0 0 24px 6px color-mix(in oklab, var(--fx-color, var(--primary)) 55%, transparent);
+      0 0 0 3px
+        color-mix(in oklab, var(--fx-color, var(--primary)) 20%, transparent),
+      0 0 24px 6px
+        color-mix(in oklab, var(--fx-color, var(--primary)) 55%, transparent);
   }
 }
 @keyframes fx-ring {
-  from { box-shadow: 0 0 0 0 color-mix(in oklab, var(--fx-color, var(--primary)) 55%, transparent); }
-  to { box-shadow: 0 0 0 14px color-mix(in oklab, var(--fx-color, var(--primary)) 0%, transparent); }
+  from {
+    box-shadow: 0 0 0 0
+      color-mix(in oklab, var(--fx-color, var(--primary)) 55%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 14px
+      color-mix(in oklab, var(--fx-color, var(--primary)) 0%, transparent);
+  }
 }
 @keyframes fx-shine {
-  0% { transform: translateX(-100%); }
-  60%, 100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+  60%,
+  100% {
+    transform: translateX(100%);
+  }
 }
 @keyframes fx-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
-@keyframes fx-fade-in { from { opacity: 0; } }
-@keyframes fx-fade-up { from { opacity: 0; transform: translateY(12px); } }
-@keyframes fx-scale-in { from { opacity: 0; transform: scale(0.95); } }
+@keyframes fx-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes fx-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@keyframes fx-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
 @keyframes fx-shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-6px); }
-  40%, 80% { transform: translateX(6px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-6px);
+  }
+  40%,
+  80% {
+    transform: translateX(6px);
+  }
 }
-@keyframes fx-text-shimmer { to { background-position: -100% 0; } }
-@keyframes fx-marker { from { background-size: 0% 40%; } }
-@keyframes fx-border-pan { to { background-position: 0 0, 100% 0; } }
+@keyframes fx-text-shimmer {
+  to {
+    background-position: -100% 0;
+  }
+}
+@keyframes fx-marker {
+  from {
+    background-size: 0% 40%;
+  }
+}
+@keyframes fx-border-pan {
+  to {
+    background-position:
+      0 0,
+      100% 0;
+  }
+}
 
 /* Effect color + delay helpers */
 @utility fx-color-* {
@@ -710,8 +924,10 @@
   &:hover,
   &:focus-visible {
     box-shadow:
-      0 0 0 3px color-mix(in oklab, var(--fx-color, var(--primary)) 20%, transparent),
-      0 0 24px 6px color-mix(in oklab, var(--fx-color, var(--primary)) 50%, transparent);
+      0 0 0 3px
+        color-mix(in oklab, var(--fx-color, var(--primary)) 20%, transparent),
+      0 0 24px 6px
+        color-mix(in oklab, var(--fx-color, var(--primary)) 50%, transparent);
   }
 }
 
@@ -725,7 +941,12 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.45) 50%, transparent 70%);
+    background: linear-gradient(
+      110deg,
+      transparent 30%,
+      rgb(255 255 255 / 0.45) 50%,
+      transparent 70%
+    );
     transform: translateX(-100%);
     animation: fx-shine 3s ease-in-out infinite;
   }
@@ -741,7 +962,12 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.45) 50%, transparent 70%);
+    background: linear-gradient(
+      110deg,
+      transparent 30%,
+      rgb(255 255 255 / 0.45) 50%,
+      transparent 70%
+    );
     transform: translateX(-100%);
   }
   &:hover::after {
@@ -759,14 +985,25 @@
   border: 2px solid transparent;
   background:
     linear-gradient(var(--surface), var(--surface)) padding-box,
-    linear-gradient(90deg, var(--primary), var(--highlight), var(--accent), var(--primary)) border-box;
-  background-size: 100% 100%, 300% 100%;
+    linear-gradient(
+        90deg,
+        var(--primary),
+        var(--highlight),
+        var(--accent),
+        var(--primary)
+      )
+      border-box;
+  background-size:
+    100% 100%,
+    300% 100%;
   animation: fx-border-pan 4s linear infinite alternate;
 }
 
 /* Rises with a bigger shadow on hover (clickable cards). */
 @utility fx-lift {
-  transition: transform 200ms var(--ease-standard), box-shadow 200ms var(--ease-standard);
+  transition:
+    transform 200ms var(--ease-standard),
+    box-shadow 200ms var(--ease-standard);
   &:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-overlay);
@@ -814,7 +1051,14 @@
   background-image: linear-gradient(
     var(--fx-angle-deg, 90deg),
     var(--fx-from, var(--primary)),
-    var(--fx-via, color-mix(in oklab, var(--fx-from, var(--primary)), var(--fx-to, var(--highlight)))),
+    var(
+      --fx-via,
+      color-mix(
+        in oklab,
+        var(--fx-from, var(--primary)),
+        var(--fx-to, var(--highlight))
+      )
+    ),
     var(--fx-to, var(--highlight))
   );
   -webkit-background-clip: text;
@@ -841,8 +1085,10 @@
 /* Soft colored glow around text (uses --fx-color). */
 @utility fx-text-glow {
   text-shadow:
-    0 0 2px color-mix(in oklab, var(--fx-color, var(--primary)) 40%, transparent),
-    0 0 14px color-mix(in oklab, var(--fx-color, var(--primary)) 60%, transparent);
+    0 0 2px
+      color-mix(in oklab, var(--fx-color, var(--primary)) 40%, transparent),
+    0 0 14px
+      color-mix(in oklab, var(--fx-color, var(--primary)) 60%, transparent);
 }
 
 /* Underline that grows from left on hover (nav links). */
@@ -886,67 +1132,206 @@
   initial-value: 0deg;
 }
 
-@keyframes fx-angle { to { --fx-angle: 360deg; } }
+@keyframes fx-angle {
+  to {
+    --fx-angle: 360deg;
+  }
+}
 @keyframes fx-gradient-pan {
-  from { background-position: 0% 50%; }
-  to { background-position: 100% 50%; }
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
 }
 @keyframes fx-aurora {
-  from { background-position: 0% 0%, 100% 0%, 50% 100%; }
-  to { background-position: 100% 50%, 0% 100%, 50% 0%; }
+  from {
+    background-position:
+      0% 0%,
+      100% 0%,
+      50% 100%;
+  }
+  to {
+    background-position:
+      100% 50%,
+      0% 100%,
+      50% 0%;
+  }
 }
 @keyframes fx-wiggle {
-  0%, 40%, 100% { transform: rotate(0); }
-  8% { transform: rotate(-6deg); }
-  16% { transform: rotate(6deg); }
-  24% { transform: rotate(-4deg); }
-  32% { transform: rotate(3deg); }
+  0%,
+  40%,
+  100% {
+    transform: rotate(0);
+  }
+  8% {
+    transform: rotate(-6deg);
+  }
+  16% {
+    transform: rotate(6deg);
+  }
+  24% {
+    transform: rotate(-4deg);
+  }
+  32% {
+    transform: rotate(3deg);
+  }
 }
 @keyframes fx-bounce {
-  0%, 100% { transform: translateY(0); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
-  50% { transform: translateY(-8px); animation-timing-function: cubic-bezier(0.4, 0, 0.7, 1); }
+  0%,
+  100% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1);
+  }
+  50% {
+    transform: translateY(-8px);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.7, 1);
+  }
 }
 @keyframes fx-heartbeat {
-  0%, 42%, 100% { transform: scale(1); }
-  14%, 28% { transform: scale(1.08); }
-  21% { transform: scale(1); }
+  0%,
+  42%,
+  100% {
+    transform: scale(1);
+  }
+  14%,
+  28% {
+    transform: scale(1.08);
+  }
+  21% {
+    transform: scale(1);
+  }
 }
 @keyframes fx-breathe {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.03); opacity: 0.85; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 0.85;
+  }
 }
-@keyframes fx-spin { to { transform: rotate(360deg); } }
-@keyframes fx-slide-left { from { opacity: 0; transform: translateX(-24px); } }
-@keyframes fx-slide-right { from { opacity: 0; transform: translateX(24px); } }
-@keyframes fx-slide-down { from { opacity: 0; transform: translateY(-16px); } }
-@keyframes fx-zoom-in { from { opacity: 0; transform: scale(0.8); } }
-@keyframes fx-blur-in { from { opacity: 0; filter: blur(8px); } }
-@keyframes fx-flip-in { from { opacity: 0; transform: perspective(600px) rotateX(-70deg); } }
+@keyframes fx-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fx-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+}
+@keyframes fx-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+@keyframes fx-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+@keyframes fx-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+@keyframes fx-blur-in {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+  }
+}
+@keyframes fx-flip-in {
+  from {
+    opacity: 0;
+    transform: perspective(600px) rotateX(-70deg);
+  }
+}
 @keyframes fx-pop-in {
-  0% { opacity: 0; transform: scale(0.6); }
-  60% { opacity: 1; transform: scale(1.06); }
-  100% { transform: scale(1); }
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 @keyframes fx-reveal {
-  from { clip-path: inset(0 100% 0 0); }
-  to { clip-path: inset(0 0 0 0); }
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
-@keyframes fx-typing { from { width: 0; } }
-@keyframes fx-caret { 50% { border-color: transparent; } }
+@keyframes fx-typing {
+  from {
+    width: 0;
+  }
+}
+@keyframes fx-caret {
+  50% {
+    border-color: transparent;
+  }
+}
 @keyframes fx-neon {
-  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
-  20%, 24%, 55% { opacity: 0.55; }
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  24%,
+  55% {
+    opacity: 0.55;
+  }
 }
-@keyframes fx-letter-up { from { opacity: 0; transform: translateY(0.45em); } }
+@keyframes fx-letter-up {
+  from {
+    opacity: 0;
+    transform: translateY(0.45em);
+  }
+}
 @keyframes fx-letter-wave {
-  0%, 60%, 100% { transform: translateY(0); }
-  30% { transform: translateY(-0.25em); }
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-0.25em);
+  }
 }
 @keyframes fx-progress {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
-@keyframes fx-scroll-scale { from { opacity: 0; transform: scale(0.9); } }
+@keyframes fx-scroll-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
 
 /* ---- Gradient presets: set the colors used by fx-text-gradient, fx-bg-gradient,
         fx-border-spin and fx-scroll-progress. Use with one of those. ---- */
@@ -992,7 +1377,14 @@
   background-image: linear-gradient(
     var(--fx-angle-deg, 135deg),
     var(--fx-from, var(--primary)),
-    var(--fx-via, color-mix(in oklab, var(--fx-from, var(--primary)), var(--fx-to, var(--highlight)))),
+    var(
+      --fx-via,
+      color-mix(
+        in oklab,
+        var(--fx-from, var(--primary)),
+        var(--fx-to, var(--highlight))
+      )
+    ),
     var(--fx-to, var(--highlight))
   );
 }
@@ -1007,29 +1399,59 @@
 @utility fx-bg-aurora {
   background-color: var(--background);
   background-image:
-    radial-gradient(40% 50% at 20% 30%, color-mix(in oklab, var(--fx-from, var(--primary)) 45%, transparent), transparent 70%),
-    radial-gradient(35% 45% at 80% 20%, color-mix(in oklab, var(--fx-via, var(--highlight)) 40%, transparent), transparent 70%),
-    radial-gradient(45% 55% at 50% 90%, color-mix(in oklab, var(--fx-to, var(--info)) 35%, transparent), transparent 70%);
-  background-size: 200% 200%, 200% 200%, 200% 200%;
+    radial-gradient(
+      40% 50% at 20% 30%,
+      color-mix(in oklab, var(--fx-from, var(--primary)) 45%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      35% 45% at 80% 20%,
+      color-mix(in oklab, var(--fx-via, var(--highlight)) 40%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      45% 55% at 50% 90%,
+      color-mix(in oklab, var(--fx-to, var(--info)) 35%, transparent),
+      transparent 70%
+    );
+  background-size:
+    200% 200%,
+    200% 200%,
+    200% 200%;
   animation: fx-aurora 14s ease-in-out infinite alternate;
 }
 
 /* Glow from the top center (section headers, pricing). */
 @utility fx-bg-spotlight {
-  background-image: radial-gradient(60% 50% at 50% 0%, color-mix(in oklab, var(--fx-color, var(--primary)) 25%, transparent), transparent 70%);
+  background-image: radial-gradient(
+    60% 50% at 50% 0%,
+    color-mix(in oklab, var(--fx-color, var(--primary)) 25%, transparent),
+    transparent 70%
+  );
 }
 
 /* Dot pattern. Change spacing with [--fx-size:24px]. */
 @utility fx-bg-dots {
-  background-image: radial-gradient(color-mix(in oklab, var(--foreground) 18%, transparent) 1px, transparent 1.5px);
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--foreground) 18%, transparent) 1px,
+    transparent 1.5px
+  );
   background-size: var(--fx-size, 16px) var(--fx-size, 16px);
 }
 
 /* Line grid pattern. Change spacing with [--fx-size:48px]. */
 @utility fx-bg-grid {
   background-image:
-    linear-gradient(to right, color-mix(in oklab, var(--foreground) 8%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 8%, transparent) 1px, transparent 1px);
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--foreground) 8%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--foreground) 8%, transparent) 1px,
+      transparent 1px
+    );
   background-size: var(--fx-size, 32px) var(--fx-size, 32px);
 }
 
@@ -1064,7 +1486,13 @@
   border: 2px solid transparent;
   background:
     linear-gradient(var(--surface), var(--surface)) padding-box,
-    conic-gradient(from var(--fx-angle), transparent 0 70%, var(--fx-color, var(--primary)) 88%, transparent 100%) border-box,
+    conic-gradient(
+        from var(--fx-angle),
+        transparent 0 70%,
+        var(--fx-color, var(--primary)) 88%,
+        transparent 100%
+      )
+      border-box,
     linear-gradient(var(--border), var(--border)) border-box;
   animation: fx-angle 3s linear infinite;
 }
@@ -1073,8 +1501,10 @@
 @utility fx-glow-border {
   border: 1px solid var(--fx-color, var(--primary));
   box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--fx-color, var(--primary)) 25%, transparent),
-    0 0 18px color-mix(in oklab, var(--fx-color, var(--primary)) 35%, transparent);
+    0 0 0 1px
+      color-mix(in oklab, var(--fx-color, var(--primary)) 25%, transparent),
+    0 0 18px
+      color-mix(in oklab, var(--fx-color, var(--primary)) 35%, transparent);
 }
 
 /* ---- Hover motions ---- */
@@ -1082,7 +1512,9 @@
 /* Slight tilt and grow on hover (playful cards). */
 @utility fx-tilt-hover {
   transition: transform 250ms var(--ease-standard);
-  &:hover { transform: rotate(-1.5deg) scale(1.02); }
+  &:hover {
+    transform: rotate(-1.5deg) scale(1.02);
+  }
 }
 
 /* Zooms the image/video inside on hover. Put it on the image's wrapper. */
@@ -1098,7 +1530,9 @@
 
 /* Bold offset shadow appears on hover (badges, playful buttons). */
 @utility fx-pop-hover {
-  transition: transform 150ms var(--ease-standard), box-shadow 150ms var(--ease-standard);
+  transition:
+    transform 150ms var(--ease-standard),
+    box-shadow 150ms var(--ease-standard);
   &:hover {
     transform: translate(-3px, -3px);
     box-shadow: 4px 4px 0 0 var(--fx-color, var(--foreground));
@@ -1106,11 +1540,22 @@
 }
 
 /* ---- Looping attention motions (one per element) ---- */
-@utility fx-wiggle { animation: fx-wiggle 2.5s ease-in-out infinite; transform-origin: 50% 80%; }
-@utility fx-bounce { animation: fx-bounce 1.4s infinite; }
-@utility fx-heartbeat { animation: fx-heartbeat 1.6s ease-in-out infinite; }
-@utility fx-breathe { animation: fx-breathe 4s ease-in-out infinite; }
-@utility fx-spin-slow { animation: fx-spin 8s linear infinite; }
+@utility fx-wiggle {
+  animation: fx-wiggle 2.5s ease-in-out infinite;
+  transform-origin: 50% 80%;
+}
+@utility fx-bounce {
+  animation: fx-bounce 1.4s infinite;
+}
+@utility fx-heartbeat {
+  animation: fx-heartbeat 1.6s ease-in-out infinite;
+}
+@utility fx-breathe {
+  animation: fx-breathe 4s ease-in-out infinite;
+}
+@utility fx-spin-slow {
+  animation: fx-spin 8s linear infinite;
+}
 
 /* ---- More entrances (play once; combine with fx-delay-*) ---- */
 @utility fx-slide-in-left {
@@ -1173,7 +1618,11 @@
     z-index: 50;
     height: 3px;
     transform-origin: 0 50%;
-    background-image: linear-gradient(90deg, var(--fx-from, var(--primary)), var(--fx-to, var(--highlight)));
+    background-image: linear-gradient(
+      90deg,
+      var(--fx-from, var(--primary)),
+      var(--fx-to, var(--highlight))
+    );
     animation: fx-progress linear both;
     animation-timeline: scroll(root);
   }
@@ -1203,7 +1652,8 @@
 @utility fx-text-neon {
   color: color-mix(in oklab, var(--fx-color, var(--highlight)) 30%, white);
   text-shadow:
-    0 0 4px color-mix(in oklab, var(--fx-color, var(--highlight)) 80%, transparent),
+    0 0 4px
+      color-mix(in oklab, var(--fx-color, var(--highlight)) 80%, transparent),
     0 0 12px var(--fx-color, var(--highlight)),
     0 0 28px var(--fx-color, var(--highlight));
   animation: fx-neon 4s linear infinite;
@@ -1227,12 +1677,18 @@
 
 /* Readable text on top of photos. */
 @utility fx-text-on-image {
-  text-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 14px rgb(0 0 0 / 0.35);
+  text-shadow:
+    0 1px 2px rgb(0 0 0 / 0.4),
+    0 2px 14px rgb(0 0 0 / 0.35);
 }
 
 /* Text fills with color from left to right on hover (nav, CTA links). */
 @utility fx-text-fill-hover {
-  background-image: linear-gradient(to right, var(--fx-color, var(--primary)) 50%, var(--foreground) 50%);
+  background-image: linear-gradient(
+    to right,
+    var(--fx-color, var(--primary)) 50%,
+    var(--foreground) 50%
+  );
   background-size: 200% 100%;
   background-position: 100% 0;
   -webkit-background-clip: text;
@@ -1248,7 +1704,11 @@
 /* Gradient underline (uses the gradient preset colors). */
 @utility fx-underline-gradient {
   text-decoration: none;
-  background-image: linear-gradient(90deg, var(--fx-from, var(--primary)), var(--fx-to, var(--highlight)));
+  background-image: linear-gradient(
+    90deg,
+    var(--fx-from, var(--primary)),
+    var(--fx-to, var(--highlight))
+  );
   background-repeat: no-repeat;
   background-position: 0 100%;
   background-size: 100% 0.12em;
@@ -1268,17 +1728,23 @@
 @utility fx-letter-rise {
   display: inline-block;
   animation: fx-letter-up 500ms var(--ease-standard) both;
-  animation-delay: calc(var(--fx-i, 0) * var(--fx-stagger, 35ms) + var(--fx-delay, 0ms));
+  animation-delay: calc(
+    var(--fx-i, 0) * var(--fx-stagger, 35ms) + var(--fx-delay, 0ms)
+  );
 }
 @utility fx-letter-fade {
   display: inline-block;
   animation: fx-fade-in 500ms var(--ease-standard) both;
-  animation-delay: calc(var(--fx-i, 0) * var(--fx-stagger, 35ms) + var(--fx-delay, 0ms));
+  animation-delay: calc(
+    var(--fx-i, 0) * var(--fx-stagger, 35ms) + var(--fx-delay, 0ms)
+  );
 }
 @utility fx-letter-blur {
   display: inline-block;
   animation: fx-blur-in 600ms var(--ease-standard) both;
-  animation-delay: calc(var(--fx-i, 0) * var(--fx-stagger, 35ms) + var(--fx-delay, 0ms));
+  animation-delay: calc(
+    var(--fx-i, 0) * var(--fx-stagger, 35ms) + var(--fx-delay, 0ms)
+  );
 }
 @utility fx-letter-wave {
   display: inline-block;

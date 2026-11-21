@@ -14,8 +14,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@internationalized/date": "^3.8.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "react-aria-components": "^1.8.0",
     "tailwind-merge": "^3.0.0"
   },
   "peerDependencies": {
