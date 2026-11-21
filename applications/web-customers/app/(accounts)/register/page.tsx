@@ -1,9 +1,13 @@
-const page = () => {
-  return (
-    <section className="fx-bg-grid flex flex-col items-center justify-center py-24 [--fx-size:24px]">
-      <div className="container fx-glow-border rounded-card bg-muted text-muted-foreground p-12">page</div>
-    </section>
-  )
-}
+import RegisterForm from "./registerForm";
 
-export default page;
+const Page = () => {
+  return (
+    <main className="flex flex-col items-center justify-center p-12">
+      <div className="container bg-background text-foreground min-h-120 fx-glow-border rounded-card overflow-hidden">
+          <RegisterForm/>
+      </div>
+    </main>
+  );
+};
+
+export default Page;
