@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { DataTable, type DataTableColumn } from "@car-rentals/ui";
+import { ACCOUNT_COLUMN_WIDTHS } from "./columns";
 
 export type Account = {
   id: string;
@@ -10,8 +11,6 @@ export type Account = {
   status: "active" | "pending";
   joined: string;
 };
-
-export const ACCOUNT_COLUMN_WIDTHS = ["30%", "35%", "15%", "20%"];
 
 export function AccountsTable({ accounts }: { accounts: Account[] }) {
   const router = useRouter();

@@ -74,7 +74,7 @@ export type DataTableProps<T> = {
   className?: string;
   /** Per-part class overrides for this table. */
   classNames?: DataTableClassNames;
-  /** Conditional row styling, e.g. row => row.status === "pending" && "bg-amber-50". */
+  /** Conditional row styling, e.g. row => row.status === "pending" && "bg-warning-subtle". */
   rowClassName?: (row: T) => string | false | null | undefined;
 };
 

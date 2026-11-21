@@ -114,7 +114,7 @@
   --muted-foreground: var(--gray-600);   /* secondary text */
 
   --border: var(--gray-200);
-  --input: var(--gray-300);
+  --input: var(--gray-500);
   --ring: var(--brand-500);              /* focus outline */
   --link: var(--brand-600);
 
@@ -193,7 +193,7 @@
   --muted-foreground: var(--gray-400);
 
   --border: var(--gray-800);
-  --input: var(--gray-700);
+  --input: var(--gray-500);
   --ring: var(--brand-400);
   --link: var(--brand-300);
 
@@ -506,23 +506,36 @@
   gap: var(--spacing-gutter);
 }
 
-/* Form controls: <input class="field">, <select class="field">, <textarea class="field"> */
+/* Form controls. Plain HTML: <input class="field">, plus optional size (field-sm, field-lg)
+   and look (field-filled, field-ghost). Input/Select/Textarea components use these same classes.
+   Knobs (set from a component or arbitrary class): --field-h --field-px --field-py
+   --field-ps --field-pe (padding start/end) --field-bg --field-border --field-text */
 @utility field {
   display: block;
   width: 100%;
-  min-height: 2.5rem;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--input);
+  min-width: 0;
+  min-height: var(--field-h, 2.5rem);
+  padding-block: var(--field-py, 0.5rem);
+  padding-inline-start: var(--field-ps, var(--field-px, 0.75rem));
+  padding-inline-end: var(--field-pe, var(--field-px, 0.75rem));
+  border: 1px solid var(--field-border, var(--input));
   border-radius: var(--radius-control);
-  background-color: var(--surface);
+  background-color: var(--field-bg, var(--surface));
   color: var(--surface-foreground);
-  font-size: max(16px, 1rem); /* below 16px, iOS Safari zooms the page on focus */
+  font-size: var(--field-text, max(16px, 1rem)); /* below 16px, iOS Safari zooms the page on focus */
   line-height: 1.5;
-  transition: border-color 150ms var(--ease-standard), box-shadow 150ms var(--ease-standard);
+  transition:
+    border-color 150ms var(--ease-standard),
+    box-shadow 150ms var(--ease-standard),
+    background-color 150ms var(--ease-standard);
 
-  &:focus-visible {
+  &::placeholder {
+    color: var(--muted-foreground);
+  }
+  &:focus {
     outline: none;
     border-color: var(--ring);
+    background-color: var(--surface);
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 30%, transparent);
   }
   &:disabled {
@@ -533,6 +546,39 @@
   &[aria-invalid="true"] {
     border-color: var(--danger);
   }
+  &[aria-invalid="true"]:focus {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--danger) 30%, transparent);
+  }
+}
+@utility field-sm {
+  --field-h: 2rem;
+  --field-px: 0.625rem;
+  --field-py: 0.25rem;
+  @media (width >= 40rem) {
+    --field-text: var(--text-small);
+  }
+}
+@utility field-lg {
+  --field-h: 3rem;
+  --field-px: 1rem;
+  --field-py: 0.625rem;
+  --field-text: var(--text-body-lg);
+}
+@utility field-filled {
+  --field-bg: var(--muted);
+  --field-border: transparent;
+}
+@utility field-ghost {
+  --field-bg: transparent;
+  --field-border: transparent;
+  &:hover {
+    --field-bg: var(--muted);
+  }
+}
+
+/* Soft focus glow for custom controls: focus:focus-halo, has-focus-visible:focus-halo */
+@utility focus-halo {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 30%, transparent);
 }
 
 /* Form label and helper/error text */
@@ -547,11 +593,13 @@
   font-size: var(--text-caption);
   color: var(--muted-foreground);
 }
+/* danger-subtle-foreground, not danger: plain --danger is only 3.7:1 on dark surfaces */
 @utility error-text {
   margin-top: 0.375rem;
   font-size: var(--text-caption);
-  color: var(--danger);
+  color: var(--danger-subtle-foreground);
 }
+
 
 /* Inline text link */
 @utility link {
@@ -583,6 +631,15 @@
 @utility tone-callout { background-color: var(--callout); color: var(--callout-foreground); }
 @utility tone-sky { background-color: var(--sky); color: var(--sky-foreground); }
 @utility tone-rating { background-color: var(--rating); color: var(--rating-foreground); }
+/* Soft pairs: tinted background + its readable text (badges, alerts, avatars). */
+@utility tone-primary-subtle { background-color: var(--primary-subtle); color: var(--primary-subtle-foreground); }
+@utility tone-success-subtle { background-color: var(--success-subtle); color: var(--success-subtle-foreground); }
+@utility tone-warning-subtle { background-color: var(--warning-subtle); color: var(--warning-subtle-foreground); }
+@utility tone-danger-subtle { background-color: var(--danger-subtle); color: var(--danger-subtle-foreground); }
+@utility tone-highlight-subtle { background-color: var(--highlight-subtle); color: var(--highlight-subtle-foreground); }
+@utility tone-info-subtle { background-color: var(--info-subtle); color: var(--info-subtle-foreground); }
+@utility tone-callout-subtle { background-color: var(--callout-subtle); color: var(--callout-subtle-foreground); }
+
 
 /* --------------------------------------------------------------------------
    6. EFFECTS  (animations & text effects, all prefixed fx-)

@@ -6,17 +6,18 @@ const badgeVariants = cva(
   "inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-caption font-medium whitespace-nowrap",
   {
     variants: {
-      tone: {
-        neutral: "bg-muted text-muted-foreground",
-        primary: "bg-primary-subtle text-primary-subtle-foreground",
-        success: "bg-success-subtle text-success-subtle-foreground",
-        warning: "bg-warning-subtle text-warning-subtle-foreground",
-        danger: "bg-danger-subtle text-danger-subtle-foreground",
-        highlight: "bg-highlight-subtle text-highlight-subtle-foreground",
-        info: "bg-info-subtle text-info-subtle-foreground",
-        callout: "bg-callout-subtle text-callout-subtle-foreground",
-        rating: "bg-rating text-rating-foreground",
-      },
+    tone: {
+      neutral: "tone-muted",
+      primary: "tone-primary-subtle",
+      success: "tone-success-subtle",
+      warning: "tone-warning-subtle",
+      danger: "tone-danger-subtle",
+      highlight: "tone-highlight-subtle",
+      info: "tone-info-subtle",
+      callout: "tone-callout-subtle",
+      rating: "tone-rating",
+    },
+
     },
     defaultVariants: { tone: "neutral" },
   },

@@ -20,7 +20,7 @@ export default function Home() {
     <main className="flex-1">
       <section className="fx-bg-aurora">
         <div className="page-container section stack items-start">
-          <Badge tone="highlight">Free cancellation on every booking</Badge>
+          <Badge tone="info">Free cancellation on every booking</Badge>
           <h1 className="max-w-3xl">
             <span className="fx-text-gradient fx-grad-brand">
               {BRAND.tagline}

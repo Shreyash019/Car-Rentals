@@ -1,9 +1,10 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ButtonHTMLAttributes } from "react";
 import { cn } from "../lib/cn";
+import { Spinner } from "./spinner";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-control font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:opacity-50 disabled:pointer-events-none",
+  "relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-control font-medium transition-colors disabled:opacity-50 disabled:pointer-events-none aria-busy:cursor-wait aria-busy:opacity-100",
   {
     variants: {
       variant: {
@@ -32,15 +33,33 @@ const buttonVariants = cva(
 );
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
-  VariantProps<typeof buttonVariants>;
+  VariantProps<typeof buttonVariants> & {
+    /** Shows a spinner and blocks clicks. The label stays (invisible) so the width doesn't jump. */
+    loading?: boolean;
+  };
 
-export function Button({ className, variant, size, fullWidth, type = "button", ...props }: ButtonProps) {
+export function Button({
+  className,
+  variant,
+  size,
+  fullWidth,
+  loading = false,
+  disabled,
+  children,
+  type = "button",
+  ...props
+}: ButtonProps) {
   return (
     <button
       type={type}
+      disabled={disabled || loading}
+      aria-busy={loading || undefined}
       className={cn(buttonVariants({ variant, size, fullWidth }), className)}
       {...props}
-    />
+    >
+      {loading && <Spinner size="sm" className="absolute" />}
+      <span className={cn("inline-flex items-center justify-center gap-2", loading && "opacity-0")}>{children}</span>
+    </button>
   );
 }
 
