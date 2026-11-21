@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { APP_THEME, BRAND, themeScript } from "@car-rentals/ui";
+import { APP_THEME, BRAND, themeScript, StarField } from "@car-rentals/ui";
 import "./globals.css";
 import { Header, Footer } from "@/components";
 import { Providers } from "./providers";
@@ -59,6 +59,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeScript() }} />
       </head>
       <body className="min-h-full flex flex-col">
+        <StarField />
         <Providers>
           <Header />
           {children}

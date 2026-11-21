@@ -1,3 +1,5 @@
+import { BRAND } from "./brand";
+
 export type Theme = "light" | "dark";
 export type ThemeMode = Theme | "system";
 
@@ -23,7 +25,8 @@ export const APP_THEME: Theme = APP_THEME_MODE === "dark" ? "dark" : "light";
  *   <script dangerouslySetInnerHTML={{ __html: themeScript() }} />
  */
 export function themeScript(defaultMode: ThemeMode = APP_THEME_MODE): string {
-  return `(function(){try{var d=document.documentElement,k=${JSON.stringify(STORAGE_KEY)},m=${JSON.stringify(defaultMode)};try{m=localStorage.getItem(k)||m}catch(e){}var q=window.matchMedia("(prefers-color-scheme: dark)");function a(){d.dataset.theme=m==="system"?(q.matches?"dark":"light"):m;d.dataset.themeMode=m}a();q.addEventListener("change",a);window.__setThemeMode=function(n){m=n;try{localStorage.setItem(k,n)}catch(e){}a()}}catch(e){}})();`;
+  const colors = JSON.stringify(BRAND.themeColor);
+  return `(function(){try{var d=document.documentElement,k=${JSON.stringify(STORAGE_KEY)},m=${JSON.stringify(defaultMode)},c=${colors};try{m=localStorage.getItem(k)||m}catch(e){}var q=window.matchMedia("(prefers-color-scheme: dark)");function a(){var t=m==="system"?(q.matches?"dark":"light"):m;d.dataset.theme=t;d.dataset.themeMode=m;var ms=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<ms.length;i++)ms[i].setAttribute("content",c[t])}a();document.addEventListener("DOMContentLoaded",a);q.addEventListener("change",a);window.__setThemeMode=function(n){m=n;try{localStorage.setItem(k,n)}catch(e){}a()}}catch(e){}})();`;
 }
 
 /** Change the theme mode from client code (used by <ThemeToggle>). Remembered per browser. */

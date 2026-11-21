@@ -121,6 +121,8 @@
   --input: var(--gray-500);
   --ring: var(--brand-500); /* focus outline */
   --link: var(--brand-600);
+  --starfield: var(--brand-600); /* StarField background: soft on white */
+  --starfield-opacity: 0.35;
   --overlay: var(--scrim);
 
   --primary: var(--brand-600);
@@ -201,6 +203,8 @@
   --input: var(--gray-500);
   --ring: var(--brand-400);
   --link: var(--brand-300);
+  --starfield: var(--brand-300); /* glowing on black */
+  --starfield-opacity: 0.75;
   --overlay: var(--scrim-strong);
 
   --primary: var(--brand-500);

@@ -108,3 +108,4 @@ export {
   CalendarDateTime,
 } from "@internationalized/date";
 export type { DateValue, Key } from "react-aria-components";
+export { StarField, type StarFieldProps } from "./components/star-field";
